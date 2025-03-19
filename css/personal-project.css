@@ -1,0 +1,65 @@
+/* Algemene Wii-stijl */
+body {
+    background: url('../images/wii-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* Wii Home Menu Container */
+.wii-home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Channel Grid */
+.channel-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+/* Individuele Channels */
+.channel {
+    width: 150px;
+    height: 100px;
+    background: white;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+}
+
+/* Hover effect */
+.channel:hover, .selected {
+    background: #cce7ff;
+    transform: scale(1.05);
+}
+
+/* Wii Pointer */
+#wii-pointer {
+    position: absolute;
+    width: 40px;
+    height: auto;
+    pointer-events: none;
+    transition: transform 0.1s ease-out;
+    z-index: 1000;
+}
+
+/* Klik effect */
+#wii-pointer.click {
+    transform: scale(0.9);
+}
