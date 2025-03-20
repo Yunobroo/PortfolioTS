@@ -45,3 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+document.addEventListener("DOMContentLoaded", function () {
+    let wiiStartup = document.getElementById("wiiStartup");
+    wiiStartup.volume = 0.5; // Geluidsniveau aanpassen
+    wiiStartup.play();
+});
