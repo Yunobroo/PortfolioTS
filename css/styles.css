@@ -52,16 +52,31 @@ h1, h2, h3 {
 }
 
 /* 🔹 Over Mij Sectie */
+/* 🔹 Over Mij Sectie */
 .about {
     padding: 100px 20px;
-    text-align: center;
+    text-align: left; /* Tekst binnen de sectie links uitlijnen */
     background: #1e1e1e;
+    width: 100%; /* Zorg ervoor dat het blok de volledige breedte van de pagina gebruikt */
+    margin: 0; /* Verwijder centreren */
 }
 
+/* Koppen in de Over Mij sectie */
+/* Kop in de Over Mij sectie */
 .about h2 {
     font-size: 2.5em;
     margin-bottom: 20px;
+    text-align: center; /* Zet de titel in het midden */
 }
+
+
+/* Paragrafen in de Over Mij sectie */
+.about p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    text-align: left; /* Zorg ervoor dat ook de paragrafen links uitgelijnd zijn */
+}
+
 
 /* 🔹 Portfolio Sectie */
 .portfolio {

@@ -1,142 +1,250 @@
-/* Algemene stijlen */
+/* 🔹 Algemene Stijlen voor Projecten */
 body {
-    background-color: #111111;
-    color: #ffffff;
-    font-family: 'Arial', sans-serif;
     margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
+    font-family: "Roboto", sans-serif;
+    background: #121212;
+    color: white;
+    scroll-behavior: smooth;
 }
 
+/* 🔹 Stijl voor Projecten-sectie */
 .projects {
     text-align: center;
-    max-width: 1200px;
-    padding: 40px 20px;
+    padding: 80px 20px;
+    background: #1e1e1e;
+    min-height: 100vh;
 }
 
-h2 {
-    color: #ff00ff;
-    text-shadow: 0 0 10px rgba(255, 0, 255, 0.7);
+/* 🔹 Titelstijl */
+.projects h2 {
+    font-size: 3em;
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    color: #00aaff;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    text-shadow: 0 0 15px rgba(0, 170, 255, 0.8);
 }
 
-/* GRID OPMAAK VOOR PROJECTEN */
+/* 🔹 Projecten Grid Layout */
 .project-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Twee kolommen */
-    gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    padding: 20px 0;
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* Algemene stijl voor projecten */
+/* 🔹 Individueel Project Blok */
 .project {
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease-in-out;
+    background: #292929;
+    padding: 25px;
+    border-radius: 20px; /* ✅ Meer afgerond */
+    text-align: center;
+    max-width: 350px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project:hover {
     transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 170, 255, 0.8);
 }
 
-h3 {
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-}
-
-/* Stijlen per project */
-/* Branding Project (Neon Roze) */
-.project.branding {
-    background-color: #222222;
-}
-
-.project.branding .neon-btn {
-    background-color: #ff00ff;
-    box-shadow: 0 0 10px rgba(255, 0, 255, 0.8);
-}
-
-.project.branding .neon-btn:hover {
-    box-shadow: 0 0 20px rgba(255, 0, 255, 1);
-}
-
-/* Create That UX (Game of Thrones - Goud/Zwart) */
-.project.ux {
-    background-color: #1a1a1a;
-    border: 2px solid #caa472;
-}
-
-.project.ux h3 {
-    color: #caa472;
-}
-
-.project.ux .neon-btn {
-    background-color: #caa472;
-    color: black;
+/* 🔹 Project Titels */
+.project h3 {
+    font-size: 1.8em;
     font-weight: bold;
+    color: #ff8a00;
+    margin-bottom: 10px;
 }
 
-.project.ux .neon-btn:hover {
-    background-color: #a38754;
+/* 🔹 Project Teksten */
+.project p {
+    font-size: 1.1em;
+    color: #ddd;
+    line-height: 1.6;
 }
 
-/* Development Project (Xenoblade - Blauw/Rood) */
-.project.development {
-    background-color: #102a42;
-    border: 2px solid #ff4757;
-}
-
-.project.development h3 {
-    color: #ff4757;
-}
-
-.project.development .neon-btn {
-    background: linear-gradient(45deg, #ff4757, #1e90ff);
+/* 🔹 Algemene Knopstijl */
+.neon-btn {
+    background-color: transparent;
+    border: 2px solid white;
     color: white;
-}
-
-.project.development .neon-btn:hover {
-    background: linear-gradient(45deg, #1e90ff, #ff4757);
-    transform: scale(1.1);
-}
-
-/* Personal Project (Star Wars - Zwart/Geel) */
-.project.personal {
-    background-color: #000000;
-    border: 2px solid #ffcc00;
-}
-
-.project.personal h3 {
-    color: #ffcc00;
+    padding: 12px 24px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 25px;
     text-transform: uppercase;
-    font-weight: bold;
-}
-
-.project.personal .neon-btn {
-    background-color: #ffcc00;
-    color: black;
-    font-weight: bold;
-}
-
-.project.personal .neon-btn:hover {
-    background-color: #e6b800;
-}
-
-/* Stijl voor de terugknop */
-.lightsaber-btn {
-    display: inline-block;
-    padding: 12px 20px;
-    background-color: #ff00ff;
-    color: white;
+    transition: 0.3s;
     text-decoration: none;
-    font-weight: bold;
-    border-radius: 5px;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    transition: transform 0.3s ease-in-out;
+    display: inline-block;
+    margin-top: 15px;
+    position: relative;
+    overflow: hidden;
 }
 
-.lightsaber-btn:hover {
-    transform: scale(1.1);
+/* 🎶 The Weeknd - Neon Pulse */
+.branding .neon-btn {
+    border-color: #ff0033;
+    color: #ff0033;
+    box-shadow: 0 0 15px #ff0033;
+}
+
+.branding .neon-btn:hover {
+    background-color: #ff0033;
+    color: black;
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 10px #ff0033; }
+    100% { box-shadow: 0 0 25px #ff0033; }
+}
+
+/* 🔥 Game of Thrones - Fire Effect */
+.ux .neon-btn {
+    border-color: #ff4500;
+    color: #ff4500;
+    box-shadow: 0 0 10px #ff4500;
+}
+
+.ux .neon-btn:hover {
+    background-color: #ff4500;
+    color: black;
+    animation: fire 1s infinite alternate;
+}
+
+@keyframes fire {
+    0% { text-shadow: 0 0 10px #ff4500; }
+    100% { text-shadow: 0 0 20px #ff9900; }
+}
+
+/* ⚔️ Xenoblade - Light Slash */
+.development .neon-btn {
+    border-color: #00aaff;
+    color: #00aaff;
+    box-shadow: 0 0 10px #00aaff;
+    position: relative;
+}
+
+.development .neon-btn:hover {
+    background-color: #00aaff;
+    color: black;
+}
+
+.development .neon-btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 170, 255, 0.8), transparent);
+    transition: 0.5s;
+}
+
+.development .neon-btn:hover::after {
+    left: 100%;
+}
+
+/* ✨ Star Wars - Lightsaber Flicker */
+.personal .neon-btn {
+    border-color: #39ff14;
+    color: #39ff14;
+    box-shadow: 0 0 15px #39ff14;
+    animation: flicker 0.1s infinite alternate;
+}
+
+.personal .neon-btn:hover {
+    background-color: #39ff14;
+    color: black;
+}
+
+@keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
+
+
+.floating-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: linear-gradient(45deg, #0044ff, #ff0066);
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 0 10px rgba(255, 0, 102, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.floating-btn:hover {
+    transform: scale(1.1) rotate(3deg);
+    box-shadow: 0 0 20px rgba(255, 0, 102, 1);
+}
+/* Branding Project (The Weeknd - neon rood/zwart) */
+.project.branding h3 {
+    font-family: 'Poppins', sans-serif;
+    color: #ff0044;
+    text-shadow: 0 0 10px rgba(255, 0, 68, 0.8);
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+/* Create That UX (Game of Thrones - Donkerblauw + Goud) */
+.project.ux h3 {
+    font-family: 'Cinzel', serif;
+    color: #f1e4b3; /* Lichter en helderder goud */
+    text-shadow: 2px 2px 15px rgba(255, 255, 255, 0.7), 0 0 5px rgba(0, 0, 0, 0.5);
+    font-size: 26px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold; /* Maakt het vetter voor leesbaarheid */
+}
+
+
+/* Development Project (Xenoblade - futuristisch blauw/wit) */
+.project.development h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: #00ccff;
+    text-shadow: 0 0 15px rgba(0, 204, 255, 0.8);
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+/* Personal Project (Star Wars - wit/geel lichte gloed) */
+.project.personal h3 {
+    font-family: 'Star Jedi', sans-serif;
+    color: 
+    #39ff14;
+    text-shadow: 0 0 10px rgba(0, 255, 21, 0.8);
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+
+/* 🔹 Responsieve Aanpassingen */
+@media (max-width: 768px) {
+    .project-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .projects h2 {
+        font-size: 2.5em;
+    }
+
+    .project h3 {
+        font-size: 1.5em;
+    }
+
+    .project p {
+        font-size: 1em;
+    }
 }
