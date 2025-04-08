@@ -24,20 +24,22 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-  function openLightbox(element) {
+// Voeg event listeners toe aan de afbeeldingen om de lightbox te openen
+const images = document.querySelectorAll('.lightbox-trigger');
+images.forEach(image => {
+    image.addEventListener('click', openLightbox);
+});
+
+// Functie om de lightbox te openen
+function openLightbox(event) {
     const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const scrollPosition = window.scrollY; // Haal de huidige scrollpositie op
-
-    lightboxImg.src = element.src;
-    lightbox.classList.add('show');
-
-    // Dynamisch de top-positie van de lightbox aanpassen op basis van de scrollpositie
-    lightbox.style.top = (scrollPosition + 10) + "px"; // 10px boven de scrollpositie
+    const lightboxImage = document.getElementById('lightbox-img');
+    lightbox.style.display = 'flex';
+    lightboxImage.src = event.target.src;
 }
 
+// Functie om de lightbox te sluiten
 function closeLightbox() {
     const lightbox = document.getElementById('lightbox');
-    lightbox.classList.remove('show');
+    lightbox.style.display = 'none';
 }
-
