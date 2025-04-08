@@ -1,0 +1,175 @@
+:root {
+    --main-bg: #0b000f;
+    --accent-color: #b34c03;
+    --text-color: #e6e1d5;
+    --heading-font: 'Cinzel', serif;
+    --body-font: 'Georgia', serif;
+  }
+  
+  body {
+    background-color: var(--main-bg);
+    color: var(--text-color);
+    font-family: var(--body-font);
+    padding: 1rem;
+  }
+  
+  h1, h2, h3 {
+    color: var(--accent-color);
+    font-family: var(--heading-font);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  a {
+    color: var(--accent-color);
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-shadow: 0 0 10px var(--accent-color);
+  }
+  
+  .back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 1.3rem;
+    color: var(--text-color);
+    background-color: var(--accent-color);
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 0 15px rgba(243, 123, 39, 0.4);
+    z-index: 1000;
+    transition: all 0.3s ease;
+  }
+.back-button
+:hover {
+    background-color: #ff3366;
+    color: var(--text-color);
+    box-shadow: 0 0 25px rgba(243, 123, 39, 0.8);
+    transform: scale(1.05);
+  }
+  
+  .fancy-title {
+    font-size: 3rem;
+    text-align: center;
+    padding: 2rem 0;
+  }
+  
+  .project {
+    margin-bottom: 2rem;
+    max-width: 800px;
+    margin-inline: auto;
+  }
+  
+  .download-link {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    border: 2px solid var(--accent-color);
+    border-radius: 8px;
+    margin-top: 0.5rem;
+    background: transparent;
+    color: var(--accent-color);
+    transition: all 0.3s ease;
+    font-weight: bold;
+  }
+  
+  .download-link:hover {
+    background: var(--accent-color);
+    color: var(--main-bg);
+    transform: scale(1.05);
+  }
+  
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+  }
+  
+  .fade-in.appear {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  
+  .prototype-section {
+    margin-top: 3rem;
+}
+
+.prototype-section h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-family: 'Cinzel', serif;
+    color: #e39b3b;
+    border-bottom: 2px solid #e39b3b;
+    display: inline-block;
+    padding-bottom: 0.3rem;
+}
+
+.media-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.media-gallery a {
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.media-gallery img {
+    max-width: 300px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease-in-out;
+}
+
+.media-gallery img:hover {
+    transform: scale(1.05);
+}
+
+.caption {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: #ccc;
+}
+
+.media-gallery video {
+    max-width: 400px;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+/* Lightbox styling */
+.lightbox {
+  position: absolute; /* Absolute positie ten opzichte van de pagina */
+  top: 10%; /* Begin met de lightbox 10% vanaf de bovenkant van de pagina */
+  left: 50%;
+  transform: translateX(-50%); /* Centreer horizontaal */
+  width: 90%; /* Zorg ervoor dat de lightbox niet breder wordt dan het scherm */
+  max-height: 80vh; /* Zorg ervoor dat de lightbox niet groter is dan 80% van het scherm */
+  background-color: rgba(0, 0, 0, 0.8); /* Donkere achtergrond */
+  display: none; /* Begin met de lightbox verborgen */
+  z-index: 1000; /* Zorg ervoor dat de lightbox boven andere elementen komt */
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 8px;
+}
+
+.lightbox.show {
+  display: block; /* Maak de lightbox zichtbaar wanneer de 'show' klasse is toegevoegd */
+}
+
+.lightbox img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border: 2px solid white;
+  border-radius: 8px;
+}

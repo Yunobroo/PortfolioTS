@@ -1,0 +1,89 @@
+/* Algemene Stijlen */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212; /* Donkere achtergrond voor contrast */
+    color: #f0f0f0; /* Lichtgrijze tekst voor leesbaarheid */
+}
+
+a {
+    text-decoration: none;
+    color: #a7240d; /* Tomaatkleurige knoppen voor flair */
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: #fff;
+    background-color: #a7240d;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+/* Terug naar Home knop */
+.back-button {
+    display: inline-block;
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #a7240d;
+    color: white;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.back-button:hover {
+    background-color: #a7240d;
+}
+
+/* Fancy title */
+.fancy-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 20px;
+    color: #ff6347;
+}
+
+
+.project {
+    background-color: #1e1e1e;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+.project h3 {
+    font-size: 2rem;
+    color: #a7240d; 
+    margin-bottom: 10px;
+}
+
+.project p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #ddd;
+}
+
+
+.fade-in {
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #121212;
+    color: #fff;
+    margin-top: 50px;
+}

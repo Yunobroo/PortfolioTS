@@ -2,7 +2,7 @@
 body {
     margin: 0;
     font-family: "Roboto", sans-serif;
-    background: #121212;
+    background: #0b000f;
     color: white;
     scroll-behavior: smooth;
 }
@@ -201,7 +201,7 @@ body {
 .project.ux h3 {
     font-family: 'Cinzel', serif;
     color: #f1e4b3; /* Lichter en helderder goud */
-    text-shadow: 2px 2px 15px rgba(255, 255, 255, 0.7), 0 0 5px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 15px rgb(139 63 9), 0 0 5px rgba(0, 0, 0, 0.5);
     font-size: 26px;
     text-transform: uppercase;
     letter-spacing: 1px;
