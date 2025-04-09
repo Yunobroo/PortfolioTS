@@ -24,22 +24,20 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Voeg event listeners toe aan de afbeeldingen om de lightbox te openen
-const images = document.querySelectorAll('.lightbox-trigger');
-images.forEach(image => {
-    image.addEventListener('click', openLightbox);
+document.addEventListener("DOMContentLoaded", function() {
+    const lightboxLinks = document.querySelectorAll('[data-lightbox="gallery"]');
+
+    lightboxLinks.forEach(link => {
+        link.addEventListener("click", function() {
+            document.body.classList.add('lightbox-open');
+        });
+    });
+
+
+    const closeButton = document.querySelector('.lightbox-close'); 
+    if (closeButton) {
+        closeButton.addEventListener("click", function() {
+            document.body.classList.remove('lightbox-open');
+        });
+    }
 });
-
-// Functie om de lightbox te openen
-function openLightbox(event) {
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImage = document.getElementById('lightbox-img');
-    lightbox.style.display = 'flex';
-    lightboxImage.src = event.target.src;
-}
-
-// Functie om de lightbox te sluiten
-function closeLightbox() {
-    const lightbox = document.getElementById('lightbox');
-    lightbox.style.display = 'none';
-}
