@@ -9,7 +9,7 @@ body {
 
 a {
     text-decoration: none;
-    color: #a7240d; /* Tomaatkleurige knoppen voor flair */
+    color: #3472b9fd; /* Tomaatkleurige knoppen voor flair */
     transition: all 0.3s ease;
 }
 
@@ -25,16 +25,17 @@ a:hover {
     display: inline-block;
     margin: 20px 0;
     padding: 10px 20px;
-    background-color: #a7240d;
+    background-color:#3472b9fd;
     color: white;
     font-size: 1rem;
     text-transform: uppercase;
     font-weight: bold;
     border-radius: 5px;
+    position: fixed;
 }
 
 .back-button:hover {
-    background-color: #a7240d;
+    background-color: #3a7dc9fd;
 }
 
 /* Fancy title */
@@ -42,48 +43,48 @@ a:hover {
     font-size: 2.5rem;
     text-align: center;
     margin-top: 20px;
-    color: #ff6347;
+    color: #3472b9fd;
 }
 
 
-.project {
-    background-color: #1e1e1e;
-    padding: 20px;
-    margin: 10px 0;
-    border-radius: 10px;
-}
-
-.project h3 {
-    font-size: 2rem;
-    color: #a7240d; 
-    margin-bottom: 10px;
-}
-
-.project p {
-    font-size: 1.1rem;
+.leeruitkomst {
+    background-color: #3d3d3d;
+    border-left: 6px solid #5a67d8;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .leeruitkomst h2 {
+    font-size: 1.8rem;
+    color: #dddddd;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .leeruitkomst p {
+    color: #dddddd;
     line-height: 1.6;
-    color: #ddd;
-}
-
-
-.fade-in {
-    animation: fadeIn 1.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #121212;
+    margin-bottom: 1rem;
+  }
+  
+  .btn {
+    display: inline-block;
+    background-color: #5a67d8;
     color: #fff;
-    margin-top: 50px;
-}
+    padding: 0.6rem 1.2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s ease;
+  }
+  
+  .btn:hover {
+    background-color: #434190;
+  }
+  

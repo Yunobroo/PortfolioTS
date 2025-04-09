@@ -1,4 +1,5 @@
-/* Algemene Stijlen */
+
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -7,11 +8,10 @@ body {
     scroll-behavior: smooth;
 }
 
-h1, h2, h3 {
-    color: #fff;
+h2, h3 {
+    color: #3472b9fd;
 }
 
-/* Knoppen */
 .btn {
     display: inline-block;
     padding: 12px 24px;
@@ -29,7 +29,7 @@ h1, h2, h3 {
     transform: scale(1.05);
 }
 
-/* 🔹 Hero Sectie */
+
 .hero {
     height: 100vh;
     display: flex;
@@ -51,34 +51,25 @@ h1, h2, h3 {
     margin-bottom: 30px;
 }
 
-/* 🔹 Over Mij Sectie */
-/* 🔹 Over Mij Sectie */
+
 .about {
     padding: 100px 20px;
-    text-align: left; /* Tekst binnen de sectie links uitlijnen */
+    text-align: left;
     background: #1e1e1e;
-    width: 100%; /* Zorg ervoor dat het blok de volledige breedte van de pagina gebruikt */
-    margin: 0; /* Verwijder centreren */
 }
 
-/* Koppen in de Over Mij sectie */
-/* Kop in de Over Mij sectie */
 .about h2 {
     font-size: 2.5em;
     margin-bottom: 20px;
-    text-align: center; /* Zet de titel in het midden */
+    text-align: center;
 }
 
-
-/* Paragrafen in de Over Mij sectie */
 .about p {
     font-size: 1.2em;
     margin-bottom: 20px;
-    text-align: left; /* Zorg ervoor dat ook de paragrafen links uitgelijnd zijn */
 }
 
 
-/* 🔹 Portfolio Sectie */
 .portfolio {
     padding: 100px 20px;
     text-align: center;
@@ -90,7 +81,6 @@ h1, h2, h3 {
     margin-bottom: 20px;
 }
 
-/* 🔹 Portfolio Grid */
 .portfolio-grid {
     display: flex;
     justify-content: center;
@@ -116,7 +106,7 @@ h1, h2, h3 {
     border-radius: 10px;
 }
 
-/* 🔹 Projecten Pagina */
+
 .project {
     text-align: center;
     padding: 100px 20px;
@@ -133,7 +123,6 @@ h1, h2, h3 {
     margin-bottom: 20px;
 }
 
-/* 🔹 Branding Project Details */
 .project-details {
     max-width: 800px;
     text-align: left;
@@ -165,62 +154,27 @@ h1, h2, h3 {
     padding-left: 20px;
 }
 
-/* 🔹 Leeruitkomsten Pagina */
-.project-details .skills {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.project-details .skill-item {
-    background: #292929;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    max-width: 300px;
-}
-
-.project-details .skill-item img {
-    width: 100%;
-    border-radius: 10px;
-}
-/* 🔹 Wireframe Afbeeldingen naast elkaar */
-.image-pair {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.image-pair img {
-    width: 48%;
-    max-width: 400px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-/* 🔹 Sticky Terugknop */
-.back-button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 10px 15px;
-    font-size: 1rem;
-    text-decoration: none;
-    border-radius: 5px;
-    z-index: 1000;
-    transition: background 0.3s, transform 0.2s;
-}
-
-.back-button:hover {
-    background-color: rgba(0, 0, 0, 0.9);
-    transform: scale(1.1);
-}
 
 
+/* Media Queries */
 @media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5em;
+    }
+    
+    .hero p {
+        font-size: 1.2em;
+    }
+
+    .portfolio-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .project-details {
+        padding: 20px;
+    }
+
     .image-pair {
         flex-direction: column;
         align-items: center;
@@ -231,26 +185,7 @@ h1, h2, h3 {
     }
 }
 
-/* 🔹 Responsieve Aanpassingen */
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.5em;
-    }
-    
-    .hero p {
-        font-size: 1.2em;
-    }
-    
-    .portfolio-grid {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .project-details {
-        padding: 20px;
-    }
-}
-/* 💡 Lightsaber Glow Effect */
+/* Lightsaber Button */
 .lightsaber-btn {
     position: relative;
     display: inline-block;
@@ -268,13 +203,11 @@ h1, h2, h3 {
     overflow: hidden;
 }
 
-/* Lightsaber Effect - Blauw */
 .lightsaber-btn:hover {
     border-color: #00aaff;
     box-shadow: 0 0 10px #00aaff, 0 0 40px #00aaff;
 }
 
-/* 🔹 Extra Animatie */
 .lightsaber-btn::before {
     content: "";
     position: absolute;
@@ -290,76 +223,4 @@ h1, h2, h3 {
 
 .lightsaber-btn:hover::before {
     transform: translateX(-50%) scaleY(1);
-}
-.floating-btn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background-color: #222;  /* Donkere achtergrond */
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.floating-btn:hover {
-    background-color: #444;  /* Lichtere hoverkleur */
-    transform: scale(1.05);
-}
-/* Parallax effect */
-.parallax {
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-/* Fancy title effect */
-.fancy-title {
-    font-size: 2.5rem;
-    background: linear-gradient(90deg, #ff8a00, #da1b60);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: glowing 2s infinite alternate;
-}
-
-/* Glow effect */
-@keyframes glowing {
-    0% { text-shadow: 0 0 5px rgba(255, 138, 0, 0.8); }
-    100% { text-shadow: 0 0 20px rgba(218, 27, 96, 1); }
-}
-
-/* Fade-in effect */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1s ease-out, transform 1s ease-out;
-}
-
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Neon Button */
-.neon-btn {
-    background-color: transparent;
-    border: 2px solid #ff8a00;
-    color: #ff8a00;
-    padding: 10px 20px;
-    font-size: 18px;
-    font-weight: bold;
-    border-radius: 5px;
-    text-transform: uppercase;
-    transition: 0.3s;
-}
-
-.neon-btn:hover {
-    background-color: #ff8a00;
-    color: black;
-    box-shadow: 0 0 15px #ff8a00;
 }
