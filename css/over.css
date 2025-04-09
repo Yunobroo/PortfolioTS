@@ -157,7 +157,7 @@ a.back-button:hover {
 }
 
 .figma-button:hover {
-  background-color: #3472b9fd; /* Of je gewenste hoverkleur */
+  background-color: #3472b9fd; 
   transform: scale(1.05);
 }
 

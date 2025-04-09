@@ -146,24 +146,24 @@
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
-/* Lightbox styling */
+
 .lightbox {
-  position: absolute; /* Absolute positie ten opzichte van de pagina */
-  top: 10%; /* Begin met de lightbox 10% vanaf de bovenkant van de pagina */
+  position: absolute; 
+  top: 10%; 
   left: 50%;
-  transform: translateX(-50%); /* Centreer horizontaal */
-  width: 90%; /* Zorg ervoor dat de lightbox niet breder wordt dan het scherm */
-  max-height: 80vh; /* Zorg ervoor dat de lightbox niet groter is dan 80% van het scherm */
-  background-color: rgba(0, 0, 0, 0.8); /* Donkere achtergrond */
-  display: none; /* Begin met de lightbox verborgen */
-  z-index: 1000; /* Zorg ervoor dat de lightbox boven andere elementen komt */
+  transform: translateX(-50%); 
+  width: 90%; 
+  max-height: 80vh; 
+  background-color: rgba(0, 0, 0, 0.8); 
+  display: none; 
+  z-index: 1000; 
   padding: 10px;
   box-sizing: border-box;
   border-radius: 8px;
 }
 
 .lightbox.show {
-  display: block; /* Maak de lightbox zichtbaar wanneer de 'show' klasse is toegevoegd */
+  display: block; 
 }
 
 .lightbox img {

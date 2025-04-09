@@ -1,4 +1,4 @@
-/* Algemene Wii-stijl */
+
 body {
     cursor: none !important;
     background: url('../images/wii-bg.jpg') no-repeat center center fixed;
@@ -8,15 +8,13 @@ body {
     overflow: hidden;
 }
 
-/* Wii Home Menu Container */
+
 .wii-home {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
-
-/* Channel Grid */
 .channel-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -27,7 +25,6 @@ body {
     backdrop-filter: blur(10px);
 }
 
-/* Individuele Channels */
 .channel {
     width: 150px;
     height: 100px;
@@ -44,13 +41,13 @@ body {
     transition: transform 0.2s, background 0.3s;
 }
 
-/* Hover effect */
+
 .channel:hover, .selected {
     background: #cce7ff;
     transform: scale(1.05);
 }
 
-/* Wii Pointer */
+
 #wii-pointer {
     position: absolute;
     width: 40px;
@@ -60,11 +57,10 @@ body {
     z-index: 1000;
 }
 
-/* Klik effect */
+
 #wii-pointer.click {
     transform: scale(0.9);
 }
-/* Fade-in animatie */
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -76,12 +72,12 @@ body {
     }
 }
 
-/* Wii Home Menu Fade-in */
+
 .wii-home {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    opacity: 0; /* Start onzichtbaar */
+    opacity: 0; 
     animation: fadeIn 3.5s ease-out forwards;
 }

@@ -156,7 +156,7 @@ h2, h3 {
 
 
 
-/* Media Queries */
+
 @media (max-width: 768px) {
     .hero h1 {
         font-size: 2.5em;
@@ -185,7 +185,7 @@ h2, h3 {
     }
 }
 
-/* Lightsaber Button */
+
 .lightsaber-btn {
     position: relative;
     display: inline-block;
