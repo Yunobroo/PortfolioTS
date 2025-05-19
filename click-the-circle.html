@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click The Circle Game</title>
+    <link rel="stylesheet" href="css/click-the-circle.css">
+</head>
+<body>
+
+    <div id="game">
+        <h1>Click The Circle Game</h1>
+        <div id="score-board">
+            <span>Score: <span id="score">0</span></span>
+            <span>Levens: <span id="lives">3</span></span>
+        </div>
+        <div id="game-area">
+            <!-- Circles will appear here -->
+        </div>
+        <button id="start-btn">Start Game</button>
+        <button id="pause-btn" style="display:none;">Pause</button>
+    </div>
+
+    <audio id="click-sound" src="click-sound.mp3"></audio>
+    <audio id="miss-sound" src="miss-sound.mp3"></audio>
+
+    <script src="js/click-the-circle-js"></script>
+</body>
+</html>
+
