@@ -6,168 +6,200 @@
   <title>Keuzemanu</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet" />
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-    body {
-      font-family: 'Cinzel', serif;
-      background: linear-gradient(to bottom, #010101, #0b0010);
-      color: #fff;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
+  body {
+    font-family: 'Cinzel', serif;
+    background: linear-gradient(to bottom, #010101, #0b0010);
+    color: #fff;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 2rem;
+  }
 
-    .title {
-      position: absolute;
-      top: 50px;
-      font-size: 2rem;
-      color: #ff0057;
-      text-shadow: 0 0 15px #ff0057;
-      z-index: 3;
-    }
+  .title {
+    position: absolute;
+    top: 50px;
+    font-size: 2rem;
+    color: #ff0057;
+    text-shadow: 0 0 15px #ff0057;
+    z-index: 3;
+    text-align: center;
+    width: 100%;
+  }
 
-    .menu-container {
-      display: flex;
-      gap: 6rem;
-      justify-content: center;
-      align-items: center;
-      z-index: 2;
-    }
+  .menu-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    text-align: center;
+  }
 
+  .menu-button {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: rgba(255, 0, 87, 0.08);
+    color: #ff0057;
+    text-align: center;
+    font-size: 1.2rem;
+    text-decoration: none;
+    position: relative;
+    box-shadow: 0 0 50px rgba(255, 0, 87, 0.6);
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 0 6px #ff0057;
+    backdrop-filter: blur(3px);
+  }
+
+  .menu-button:hover {
+    transform: scale(1.1);
+  }
+
+  .pulse-ring,
+  .outer-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 0, 87, 0.3);
+    animation: pulse 3s infinite;
+    pointer-events: none;
+  }
+
+  .pulse-ring {
+    width: 330px;
+    height: 330px;
+    top: -40px;
+    left: -40px;
+  }
+
+  .outer-ring {
+    width: 400px;
+    height: 400px;
+    top: -75px;
+    left: -75px;
+    animation-delay: 1.5s;
+    opacity: 0.2;
+  }
+
+  .orbit-circle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ff0057;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: orbit 6s linear infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  @keyframes orbit {
+    0% {
+      transform: rotate(0deg) translateX(170px) rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg) translateX(170px) rotate(-360deg);
+    }
+  }
+
+  .stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    opacity: 0.2;
+    animation: flicker 4s infinite alternate;
+  }
+
+  @keyframes flicker {
+    0% { opacity: 0.1; }
+    100% { opacity: 0.6; }
+  }
+
+  .grid {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 300px;
+    background: repeating-linear-gradient(
+      to top,
+      rgba(255, 0, 87, 0.1) 0px,
+      rgba(255, 0, 87, 0.1) 1px,
+      transparent 1px,
+      transparent 20px
+    ), repeating-linear-gradient(
+      to right,
+      rgba(255, 0, 87, 0.1) 0px,
+      rgba(255, 0, 87, 0.1) 1px,
+      transparent 1px,
+      transparent 20px
+    );
+    transform: perspective(800px) rotateX(60deg);
+    transform-origin: bottom;
+    z-index: 0;
+  }
+
+  /* ✅ Responsive styling */
+  @media (max-width: 768px) {
     .menu-button {
-      width: 250px;
-      height: 250px;
-      border-radius: 50%;
-      background: rgba(255, 0, 87, 0.08);
-      color: #ff0057;
-      text-align: center;
-      font-size: 1.2rem;
-      text-decoration: none;
-      position: relative;
-      box-shadow: 0 0 50px rgba(255, 0, 87, 0.6);
-      transition: transform 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-shadow: 0 0 6px #ff0057;
-      backdrop-filter: blur(3px);
-    }
-
-    .menu-button:hover {
-      transform: scale(1.1);
-    }
-
-    .pulse-ring,
-    .outer-ring {
-      position: absolute;
-      border-radius: 50%;
-      border: 2px solid rgba(255, 0, 87, 0.3);
-      animation: pulse 3s infinite;
-      pointer-events: none;
+      width: 160px;
+      height: 160px;
+      font-size: 1rem;
     }
 
     .pulse-ring {
-      width: 330px;
-      height: 330px;
-      top: -40px;
-      left: -40px;
+      width: 200px;
+      height: 200px;
+      top: -25px;
+      left: -25px;
     }
 
     .outer-ring {
-      width: 400px;
-      height: 400px;
-      top: -75px;
-      left: -75px;
-      animation-delay: 1.5s;
-      opacity: 0.2;
+      width: 240px;
+      height: 240px;
+      top: -45px;
+      left: -45px;
     }
 
-    .orbit-circle {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background-color: #ff0057;
-      top: -6px;
-      left: 50%;
-      transform: translateX(-50%);
-      animation: orbit 6s linear infinite;
+    .title {
+      font-size: 1.5rem;
+      top: 30px;
     }
+  }
+</style>
 
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-        opacity: 0.5;
-      }
-      100% {
-        transform: scale(1.5);
-        opacity: 0;
-      }
-    }
-
-    @keyframes orbit {
-      0% {
-        transform: rotate(0deg) translateX(170px) rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg) translateX(170px) rotate(-360deg);
-      }
-    }
-
-    .stars {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: #fff;
-      opacity: 0.2;
-      animation: flicker 4s infinite alternate;
-    }
-
-    @keyframes flicker {
-      0% { opacity: 0.1; }
-      100% { opacity: 0.6; }
-    }
-
-    .grid {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 300px;
-      background: repeating-linear-gradient(
-        to top,
-        rgba(255, 0, 87, 0.1) 0px,
-        rgba(255, 0, 87, 0.1) 1px,
-        transparent 1px,
-        transparent 20px
-      ), repeating-linear-gradient(
-        to right,
-        rgba(255, 0, 87, 0.1) 0px,
-        rgba(255, 0, 87, 0.1) 1px,
-        transparent 1px,
-        transparent 20px
-      );
-      transform: perspective(800px) rotateX(60deg);
-      transform-origin: bottom;
-      z-index: 0;
-    }
-
-
-  </style>
 </head>
 <body>
 
