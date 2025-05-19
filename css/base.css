@@ -1,0 +1,67 @@
+:root {
+  --accent-color: #3472b9fd;
+  --primary-bg: #0b000f;
+  --card-bg: #1a1a1a;
+  --text-color: #ffffff;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+h2 {
+  color: var(--accent-color);
+  font-family: 'Cinzel', serif;
+  margin-top: 2rem;
+  border-left: 4px solid var(--accent-color);
+  padding-left: 12px;
+}
+
+a.back-button {
+  position: fixed;
+  margin: 20px;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #fff;
+  background: var(--accent-color);
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 0 10px #b41010;
+  transition: 0.3s ease;
+}
+
+a.back-button:hover {
+  background: #b41010;
+  transform: scale(1.05);
+}
+
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.image-container img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.caption {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  color: var(--accent-color);
+  margin-top: 0.5rem;
+}
+
+.project-block {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  transition: 0.3s ease;
+}

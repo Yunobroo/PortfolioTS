@@ -14,15 +14,15 @@ h2, h3 {
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-    height: 300px;
+    height: 250px; /* Verkleinde hoogte */
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
     text-align: center;
-    font-size: 3rem;
+    font-size: 2.5rem; /* Kleinere tekst */
     text-shadow: 0 0 20px rgba(255, 0, 60, 0.8);
-    border-bottom: 2px solid #ff003c;
+    border-bottom: 1px solid #ff003c; /* Dunne rand */
 }
 
 .fancy-title {
@@ -31,26 +31,26 @@ h2, h3 {
 }
 
 .project {
-    padding: 40px;
+    padding: 20px; /* Verkleinde padding */
     background-color: #1b001f;
-    margin: 20px 0;
+    margin: 15px 0; /* Kleinere marge */
     border-radius: 12px;
-    box-shadow: 0 6px 25px rgba(255, 0, 60, 0.1);
+    box-shadow: 0 6px 20px rgba(255, 0, 60, 0.1);
     border: 1px solid #ff003c33;
 }
 
 .back-button {
     position: fixed;
-    top: 20px;
-    left: 20px;
-    font-size: 1.3rem;
+    top: 15px; /* Kleinere afstand boven */
+    left: 15px; /* Kleinere afstand links */
+    font-size: 1.1rem; /* Kleinere tekst */
     color: #ffffff;
     background-color: #ff003c;
-    padding: 10px 20px;
+    padding: 8px 15px; /* Kleinere padding */
     border-radius: 8px;
     text-decoration: none;
     text-shadow: none;
-    box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
+    box-shadow: 0 0 10px rgba(255, 0, 60, 0.4);
     z-index: 1000;
     transition: all 0.3s ease;
 }
@@ -58,28 +58,27 @@ h2, h3 {
 .back-button:hover {
     background-color: #ff3366;
     color: #fff;
-    box-shadow: 0 0 25px rgba(255, 0, 60, 0.8);
+    box-shadow: 0 0 20px rgba(255, 0, 60, 0.8);
     transform: scale(1.05);
 }
 
-
 .neon-btn {
     display: inline-block;
-    padding: 12px 25px;
-    margin: 20px 0;
+    padding: 10px 20px; /* Kleinere padding */
+    margin: 15px 0; /* Kleinere marge */
     background-color: #ff003c;
     color: #fff;
     text-decoration: none;
     border-radius: 8px;
-    font-size: 1.2rem;
+    font-size: 1.1rem; /* Kleinere tekst */
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 0 10px rgba(255, 0, 60, 0.8), 0 0 25px rgba(255, 0, 60, 0.6);
+    box-shadow: 0 0 8px rgba(255, 0, 60, 0.8), 0 0 20px rgba(255, 0, 60, 0.6);
     transition: all 0.3s ease;
 }
 
 .neon-btn:hover {
-    box-shadow: 0 0 35px rgba(255, 0, 60, 1);
+    box-shadow: 0 0 30px rgba(255, 0, 60, 1);
     transform: scale(1.05);
     background-color: #ff3366;
 }
@@ -97,7 +96,7 @@ h2, h3 {
 .image-pair img,
 .logo-concept-1-img {
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(255, 0, 60, 0.3);
+    box-shadow: 0 4px 15px rgba(255, 0, 60, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -111,7 +110,7 @@ h2, h3 {
 .image-pair {
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
-    gap: 20px;
+    gap: 15px; /* Kleinere gap */
 }
 
 .image-pair a {
@@ -123,17 +122,17 @@ h2, h3 {
     height: auto;
 }
 
-
 .logo-concept-1 {
     width: 60%;
     margin: 0 auto;
-    padding: 20px;
+    padding: 15px; /* Kleinere padding */
 }
+
 .image-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Kleinere min breedte */
+    gap: 15px; /* Kleinere gap */
+    margin-top: 15px; /* Kleinere marge boven */
 }
 
 .image-grid img {
@@ -148,9 +147,10 @@ h2, h3 {
 .image-grid img:hover {
     transform: scale(1.03);
 }
+
 .image-gallery {
     display: flex;
-    gap: 20px;
+    gap: 15px; /* Kleinere gap */
     justify-content: center;
 }
 
@@ -167,6 +167,7 @@ h2, h3 {
     transform: scale(1.04);
     box-shadow: 0 6px 30px rgba(255, 0, 60, 0.6);
 }
+
 /* Overlay voor Lightbox */
 .lightbox-overlay {
     position: fixed;
@@ -182,21 +183,22 @@ h2, h3 {
 }
 
 .lightbox-image {
-    max-width: 90%;
-    max-height: 90%;
+    max-width: 85%; /* Kleinere max breedte */
+    max-height: 85%; /* Kleinere max hoogte */
     border-radius: 12px;
 }
+
 .back-to-projects-btn {
     position: fixed;
-    top: 20px;
-    left: 20px;
-    font-size: 1.3rem;
+    top: 15px; /* Kleinere afstand boven */
+    left: 15px; /* Kleinere afstand links */
+    font-size: 1.1rem; /* Kleinere tekst */
     color: #ffffff;
     background-color: #ff003c;
-    padding: 10px 20px;
+    padding: 8px 15px; /* Kleinere padding */
     border-radius: 8px;
     text-decoration: none;
-    box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
+    box-shadow: 0 0 10px rgba(255, 0, 60, 0.4);
     z-index: 1000;
     transition: all 0.3s ease;
     display: none; /* Initially hidden */
@@ -205,7 +207,7 @@ h2, h3 {
 .back-to-projects-btn:hover {
     background-color: #ff3366;
     color: #fff;
-    box-shadow: 0 0 25px rgba(255, 0, 60, 0.8);
+    box-shadow: 0 0 20px rgba(255, 0, 60, 0.8);
     transform: scale(1.05);
 }
 
@@ -213,9 +215,10 @@ h2, h3 {
 .lightbox-open .back-to-projects-btn {
     display: block;
 }
+
 .logo-container {
     background-color: #f0f0f0; /* Lichte achtergrondkleur */
-    padding: 20px; /* Optioneel: padding rondom de afbeelding */
+    padding: 15px; /* Kleinere padding */
     display: inline-block; /* Zorgt ervoor dat de afbeelding niet uitrekt */
     border-radius: 8px; /* Optioneel: randen afronden */
 }
@@ -224,36 +227,36 @@ h2, h3 {
     max-width: 100%; /* Zorgt ervoor dat de afbeelding niet uitrekt */
     height: auto; /* Houdt de beeldverhouding intact */
 }
+
 .download-links {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-    margin-top: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Kleinere kolombreedte */
+    gap: 12px; /* Kleinere gap */
+    margin-top: 15px; /* Kleinere marge boven */
 }
 
-
-
 .small-image {
-    max-width: 70%;
-    max-height: 30%;
+    max-width: 60%; /* Kleinere max breedte */
+    max-height: 25%; /* Kleinere max hoogte */
     display: block;
     margin: 0 auto;
     border-radius: 12px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
     transition: transform 0.3s ease;
 }
 
 .small-image:hover {
     transform: scale(1.03);
 }
+
 .result-block {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem; /* Kleinere marge onder */
 }
 
 .result-block h3 {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem; /* Kleinere marge onder kop */
     color: var(--accent-color);
-    font-size: 1.4rem;
+    font-size: 1.3rem; /* Kleinere font-size */
 }
 
 .image-pair,
@@ -266,15 +269,16 @@ h2, h3 {
 
 .image-pair img,
 .image-trio img {
-    max-width: 300px;
+    max-width: 250px; /* Kleinere breedte */
     width: 100%;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.25);
 }
+
 .download-btn {
     display: inline-block;
     margin-top: 1rem;
-    padding: 0.75rem 1.5rem;
+    padding: 0.6rem 1.2rem; /* Kleinere padding */
     background: linear-gradient(to right, #ff003c, #ff003c);
     color: #ffffff;
     font-weight: bold;
