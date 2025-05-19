@@ -23,13 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateSelection();
 
-    // Wii Pointer beweging
+
     document.addEventListener('mousemove', (event) => {
         pointer.style.left = event.pageX + 'px';
         pointer.style.top = event.pageY + 'px';
     });
 
-    // Klik effect
+
     document.addEventListener('mousedown', () => {
         pointer.classList.add('click');
     });
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pointer.classList.remove('click');
     });
 
-    // Klikken op channels
+ 
     channels.forEach((channel, index) => {
         channel.addEventListener('click', () => {
             window.location.href = channel.dataset.url;
@@ -47,6 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 document.addEventListener("DOMContentLoaded", function () {
     let wiiStartup = document.getElementById("wiiStartup");
-    wiiStartup.volume = 0.5; // Geluidsniveau aanpassen
+    wiiStartup.volume = 3;
     wiiStartup.play();
 });

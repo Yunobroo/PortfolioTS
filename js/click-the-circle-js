@@ -1,0 +1,95 @@
+let gameStarted = false;
+let score = 0;
+let lives = 3;
+let difficulty = 1000; 
+let gameInterval;
+let clickSound = document.getElementById("click-sound");
+let missSound = document.getElementById("miss-sound");
+let gameArea = document.getElementById("game-area");
+let startBtn = document.getElementById("start-btn");
+let pauseBtn = document.getElementById("pause-btn");
+
+startBtn.addEventListener("click", startGame);
+pauseBtn.addEventListener("click", pauseGame);
+
+function startGame() {
+    gameStarted = true;
+    score = 0;
+    lives = 3;
+    difficulty = 1000; 
+
+    document.getElementById("score").innerText = score;
+    document.getElementById("lives").innerText = lives;
+    startBtn.style.display = "none";
+    pauseBtn.style.display = "inline-block";
+    
+    gameInterval = setInterval(createCircle, difficulty); 
+}
+
+function pauseGame() {
+    clearInterval(gameInterval);
+    startBtn.style.display = "inline-block";
+    pauseBtn.style.display = "none";
+}
+
+function createCircle() {
+    if (lives <= 0) {
+        endGame();
+        return;
+    }
+
+
+    const x = Math.random() * (gameArea.offsetWidth - 50);
+    const y = Math.random() * (gameArea.offsetHeight - 50);
+
+    const circle = document.createElement("div");
+    circle.classList.add("circle");
+    circle.style.top = `${y}px`;
+    circle.style.left = `${x}px`;
+
+    circle.addEventListener("click", function() {
+        hitCircle(circle);
+    });
+
+    gameArea.appendChild(circle);
+
+    difficulty -= 10; 
+    clearInterval(gameInterval); 
+    gameInterval = setInterval(createCircle, difficulty);
+    
+    setTimeout(() => {
+        if (gameArea.contains(circle)) {
+            missCircle(circle);
+        }
+    }, 2000);
+}
+
+function hitCircle(circle) {
+    score += 10;
+    document.getElementById("score").innerText = score;
+    gameArea.removeChild(circle);
+    clickSound.play(); 
+}
+
+function missCircle(circle) {
+    lives -= 1;
+    document.getElementById("lives").innerText = lives;
+    gameArea.removeChild(circle);
+    missSound.play(); 
+}
+
+function endGame() {
+    alert("Game over! Je score was: " + score);
+    resetGame();
+}
+
+function resetGame() {
+    clearInterval(gameInterval);
+    score = 0;
+    lives = 3;
+    document.getElementById("score").innerText = score;
+    document.getElementById("lives").innerText = lives;
+    startBtn.style.display = "inline-block";
+    pauseBtn.style.display = "none";
+    gameStarted = false;
+}

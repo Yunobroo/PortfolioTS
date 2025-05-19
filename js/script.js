@@ -18,14 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-// Parallax Effect
+
 document.addEventListener("scroll", function () {
     const parallax = document.querySelector(".parallax");
     let scrollPosition = window.scrollY;
     parallax.style.backgroundPositionY = scrollPosition * 0.5 + "px";
 });
 
-// Fade-in effect on scroll
+
 document.addEventListener("scroll", function () {
     const fadeElements = document.querySelectorAll(".fade-in");
     fadeElements.forEach(el => {
