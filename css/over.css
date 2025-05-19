@@ -1,9 +1,9 @@
 :root {
-  --accent-color: #3472b9fd;
-  --primary-bg: #0b000f;
-  --card-bg: #1a1a1a;
+  --accent-color: #1db954; /* neon-groen */
+  --primary-bg: #041414; /* groenzwart */
+  --card-bg: #0a1e1e;
+  --text-color: #e0f8f6;
 }
-
 body {
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
@@ -12,7 +12,7 @@ body {
   line-height: 1.6;
 }
 h2 {
-  color: #3472b9fd;
+  color: #1db954;
   font-family: 'Cinzel', serif;
   margin-top: 2rem;
   border-left: 4px solid var(--accent-color);
@@ -25,7 +25,7 @@ a.back-button {
   padding: 10px 20px;
   text-decoration: none;
   color: #fff;
-  background: linear-gradient(45deg, #3472b9fd, #3472b9fd);
+  background: linear-gradient(45deg, #1db954, #1db954);
   border-radius: 8px;
   font-weight: bold;
   box-shadow: 0 0 10px #b41010;
@@ -144,7 +144,7 @@ a.back-button:hover {
 
 .figma-button {
   display: inline-block;
-  background-color: #3472b9fd;
+  background-color: #1db954;
   color: #ffffff;
   font-size: 1.1rem;
   padding: 10px 20px;
@@ -157,7 +157,7 @@ a.back-button:hover {
 }
 
 .figma-button:hover {
-  background-color: #3472b9fd; 
+  background-color: #1db954; 
   transform: scale(1.05);
 }
 
