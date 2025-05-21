@@ -8,9 +8,124 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
     <script src="js/create-that.js" defer></script>
 </head>
+<header style="position: relative; padding: 10px;">
+  <img 
+    id="deathstar-icon"
+    src="images/295823.png"
+    alt="Death Star"
+    width="40"
+    height="40"
+    style="cursor: pointer; transition: transform 1s ease;"
+  >
+  <nav id="nav-menu" class="hidden" style="
+    position: absolute;
+    top: 50px;
+    left: 10px;
+    background: #222;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+    z-index: 1000;
+  ">
+    <ul style="list-style:none; margin:0; padding:0; color: white;">
+      <li style="margin-bottom:10px;">
+        <a href="index.html" class="nav-link" style="color:white; text-decoration:none;">Home</a>
+      </li>
+      <li style="margin-bottom:10px;">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <a href="projecten.html" class="nav-link" style="color:white; text-decoration:none;">Projecten</a>
+          <button class="submenu-toggle" style="background:none; border:none; color:white; cursor:pointer;">▼</button>
+        </div>
+        <ul class="submenu hidden" style="list-style:none; padding-left:15px; margin-top:5px;">
+          <li><a href="branding.html" class="nav-link" style="color:white; text-decoration:none;">Branding Project</a></li>
+          <li><a href="create-that-ux.html" class="nav-link" style="color:white; text-decoration:none;">Create-that-UX Project</a></li>
+          <li><a href="development.html" class="nav-link" style="color:white; text-decoration:none;">Development Project</a></li>
+          <li><a href="has.html" class="nav-link" style="color:white; text-decoration:none;">Personal Project</a></li>
+        </ul>
+      </li>
+      <li style="margin-bottom:10px;">
+        <a href="leeruitkomsten.html" class="nav-link" style="color:white; text-decoration:none;">Leeruitkomsten</a>
+      </li>
+      <li>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <a href="menu.html" class="nav-link" style="color:white; text-decoration:none;">Over mijn portfolio</a>
+          <button class="submenu-toggle" style="background:none; border:none; color:white; cursor:pointer;">▼</button>
+        </div>
+        <ul class="submenu hidden" style="list-style:none; padding-left:15px; margin-top:5px;">
+          <li><a href="over-dit-portfolio.html" class="nav-link" style="color:white; text-decoration:none;">Over Dit Portfolio</a></li>
+          <li><a href="over-mij.html" class="nav-link" style="color:white; text-decoration:none;">Over Mij</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      document.querySelector('header').classList.add('visible');
+
+      const currentPath = window.location.pathname.split('/').pop();
+      document.querySelectorAll('#nav-menu .nav-link').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPath) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    const deathstar = document.getElementById('deathstar-icon');
+    const navMenu = document.getElementById('nav-menu');
+
+    deathstar.addEventListener('click', () => {
+      navMenu.classList.toggle('hidden');
+      if (!navMenu.classList.contains('hidden')) {
+        deathstar.src = 'images/295744.png';
+        deathstar.style.transform = 'rotate(720deg)';
+      } else {
+        deathstar.style.transform = 'rotate(0deg)';
+        deathstar.src = 'images/295823.png';
+      }
+    });
+
+    document.querySelectorAll('.submenu-toggle').forEach(toggle => {
+      toggle.addEventListener('click', e => {
+        e.stopPropagation();
+        const submenu = toggle.parentElement.nextElementSibling;
+        submenu.classList.toggle('hidden');
+      });
+    });
+
+    document.querySelectorAll('#nav-menu .nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelectorAll('#nav-menu .nav-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        navMenu.classList.add('hidden');
+        deathstar.style.transform = 'rotate(0deg)';
+        deathstar.src = 'images/295823.png';
+      });
+    });
+  </script>
+
+  <style>
+    #nav-menu.hidden, .submenu.hidden {
+      display: none;
+    }
+    #nav-menu a.active {
+      color: #ffcc00;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    header {
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+    header.visible {
+      opacity: 1;
+    }
+  </style>
+</header>
 <body>
 
-<a href="projecten.html" class="back-button">← Terug naar Projecten</a>
+
 
 <section class="project parallax">
     <h2 class="fancy-title">Create That UX Project Cardan</h2>
