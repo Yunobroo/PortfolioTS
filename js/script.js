@@ -35,3 +35,56 @@ document.addEventListener("scroll", function () {
         }
     });
 });
+
+
+  const sequence = ['T','I','M','E','L','E','S','S'];
+  let input = [];
+
+  document.querySelectorAll('.letter').forEach(letter => {
+    letter.addEventListener('click', () => {
+      const clicked = letter.innerText.toUpperCase();
+
+      if (clicked === sequence[input.length]) {
+        input.push(clicked);
+      } else {
+        input = clicked === sequence[0] ? [clicked] : [];
+      }
+
+      if (input.length === sequence.length) {
+        activateAndorEgg();
+        input = [];
+      }
+    });
+  });
+
+  function activateAndorEgg() {
+    const video = document.getElementById('andor-video');
+    const audio = document.getElementById('timeless-audio');
+    const hero = document.querySelector('.hero');
+    const stopBtn = document.getElementById('stop-easter-egg');
+
+    hero.classList.add('faded');
+    video.style.pointerEvents = 'none';
+    video.muted = false;
+    video.play().catch(() => {});
+    audio.play().catch(() => {});
+    setTimeout(() => {
+      video.style.opacity = '1';
+    }, 100);
+    
+    stopBtn.style.display = 'block';
+  }
+
+  // Stop knop functionaliteit
+  document.getElementById('stop-easter-egg').addEventListener('click', () => {
+    const video = document.getElementById('andor-video');
+    const audio = document.getElementById('timeless-audio');
+    const hero = document.querySelector('.hero');
+    const stopBtn = document.getElementById('stop-easter-egg');
+
+    video.pause();
+    audio.pause();
+    video.style.opacity = '0';
+    hero.classList.remove('faded');
+    stopBtn.style.display = 'none';
+  });

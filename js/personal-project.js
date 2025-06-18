@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let channels = document.querySelectorAll('.channel');
     let selectedIndex = 0;
     let pointer = document.getElementById('wii-pointer');
+    let wiiStartup = document.getElementById('wiiStartup');
 
     function updateSelection() {
         channels.forEach((channel, index) => {
@@ -18,17 +19,22 @@ document.addEventListener('DOMContentLoaded', () => {
             let selectedChannel = channels[selectedIndex];
             window.location.href = selectedChannel.dataset.url;
         }
+
+        // Start audio on any key press if not already playing
+        if (wiiStartup.paused) {
+            wiiStartup.volume = 0.5;
+            wiiStartup.play().catch(err => {
+                console.warn("Audio play prevented:", err);
+            });
+        }
+
         updateSelection();
     });
-
-    updateSelection();
-
 
     document.addEventListener('mousemove', (event) => {
         pointer.style.left = event.pageX + 'px';
         pointer.style.top = event.pageY + 'px';
     });
-
 
     document.addEventListener('mousedown', () => {
         pointer.classList.add('click');
@@ -38,15 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
         pointer.classList.remove('click');
     });
 
- 
     channels.forEach((channel, index) => {
         channel.addEventListener('click', () => {
             window.location.href = channel.dataset.url;
         });
     });
-});
-document.addEventListener("DOMContentLoaded", function () {
-    let wiiStartup = document.getElementById("wiiStartup");
-    wiiStartup.volume = 3;
-    wiiStartup.play();
+
+    updateSelection();
 });
