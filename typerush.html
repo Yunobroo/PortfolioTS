@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Type Rush</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+    }
+
+    #menu {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
+      max-width: 600px;
+    }
+
+    .title-glow {
+      font-size: 3rem;
+      color: #ff0057;
+      text-shadow: 0 0 15px #ff0057, 0 0 40px #ff0057;
+      margin-bottom: 1rem;
+    }
+
+    .difficulty-btn {
+      padding: 10px 20px;
+      margin: 10px 5px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      background: rgba(255, 0, 87, 0.08);
+      color: #ff0057;
+      border: 2px solid #ff0057;
+      border-radius: 8px;
+      text-shadow: 0 0 5px #ff0057;
+      box-shadow: 0 0 20px rgba(255, 0, 87, 0.5);
+      transition: transform 0.2s ease;
+    }
+
+    .difficulty-btn:hover {
+      transform: scale(1.1);
+    }
+
+    #gameArea {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: none;
+    }
+
+    .word {
+      position: absolute;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ff00ff;
+      text-shadow: 0 0 5px #ff00ff;
+    }
+
+    #inputContainer {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    #wordInput {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border: 2px solid #ff00ff;
+      background: black;
+      color: white;
+      outline: none;
+    }
+
+    #score {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 1.2rem;
+    }
+
+    #gameOver {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      color: white;
+      background: #000;
+      padding: 20px 40px;
+      border: 2px solid #ff00ff;
+      border-radius: 10px;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    #restartBtn, #menuBtn {
+      margin: 10px 5px 0;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: #ff00ff;
+      color: black;
+      border: none;
+      cursor: pointer;
+    }
+
+    ul {
+      text-align: left;
+      display: inline-block;
+      font-size: 1rem;
+      line-height: 1.4;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="menu">
+  <h1 class="title-glow">Type Rush</h1>
+  <p>
+    Welkom bij <strong>Type Rush</strong>! Typ de vallende woorden voordat ze de onderkant van het scherm bereiken. Hoe verder je komt, hoe sneller het gaat!
+  </p>
+  <ul>
+    <li><strong>Makkelijk:</strong> Korte woorden, langzaam tempo</li>
+    <li><strong>Normaal:</strong> Gemiddelde woorden, normale snelheid</li>
+    <li><strong>Moeilijk:</strong> Langere woorden, sneller</li>
+    <li><strong>Gestoord:</strong> Alleen voor typ-monsters</li>
+  </ul>
+  <button class="difficulty-btn" onclick="startGame('easy')">Makkelijk</button>
+  <button class="difficulty-btn" onclick="startGame('normal')">Normaal</button>
+  <button class="difficulty-btn" onclick="startGame('hard')">Moeilijk</button>
+  <button class="difficulty-btn" onclick="startGame('insane')">Gestoord</button>
+</div>
+
+<div id="gameArea">
+  <div id="score">Score: 0</div>
+  <div id="inputContainer">
+    <input type="text" id="wordInput" placeholder="Typ hier..." autofocus />
+  </div>
+  <div id="gameOver">
+    <div>💀 Game Over</div>
+    <div id="finalScore"></div>
+    <button id="restartBtn" onclick="restartGame()">Opnieuw</button>
+    <button id="menuBtn" onclick="backToMenu()">Terug naar menu</button>
+  </div>
+</div>
+
+<script>
+  const wordLists = {
+    easy: ["pen", "zon", "ijs", "dag", "bal", "vis", "boom", "deur", "jas", "maan", "bos"],
+    normal: ["robot", "pizza", "regen", "boek", "school", "strand", "ijsbeer", "katten", "winkel"],
+    hard: ["paraplu", "luchtballon", "cadeaubon", "vliegtuig", "toverstok", "brievenbus"],
+    insane: ["stuiterbal", "donutsmaak", "computermuis", "glitchportal", "codebui", "hyperflexibiliteit"]
+  };
+
+  let wordList = [];
+  let words = [];
+  let score = 0;
+  let speed = 1;
+  let spawnInterval = 2000;
+  let spawnTimer;
+  let gameRunning = false;
+
+  const gameArea = document.getElementById('gameArea');
+  const input = document.getElementById('wordInput');
+  const scoreEl = document.getElementById('score');
+  const gameOverEl = document.getElementById('gameOver');
+  const finalScoreEl = document.getElementById('finalScore');
+  const menu = document.getElementById('menu');
+
+  function startGame(difficulty) {
+    wordList = wordLists[difficulty];
+    words = [];
+    score = 0;
+    speed = 1;
+    spawnInterval = 2000;
+    gameRunning = true;
+
+    menu.style.display = 'none';
+    gameArea.style.display = 'block';
+    gameOverEl.style.display = 'none';
+    scoreEl.textContent = 'Score: 0';
+    input.disabled = false;
+    input.value = '';
+    input.focus();
+
+    if (spawnTimer) clearInterval(spawnTimer);
+    spawnTimer = setInterval(spawnWord, spawnInterval);
+
+    requestAnimationFrame(gameLoop);
+  }
+
+  function spawnWord() {
+    const word = wordList[Math.floor(Math.random() * wordList.length)];
+    const el = document.createElement('div');
+    el.className = 'word';
+    el.textContent = word;
+    el.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+    el.style.top = '0px';
+    gameArea.appendChild(el);
+    words.push({ text: word, el: el, y: 0 });
+  }
+
+  function updateWords() {
+    for (let i = 0; i < words.length; i++) {
+      words[i].y += speed;
+      words[i].el.style.top = words[i].y + 'px';
+      if (words[i].y > window.innerHeight - 50) {
+        endGame();
+        return;
+      }
+    }
+  }
+
+  function checkWord(inputText) {
+    for (let i = 0; i < words.length; i++) {
+      if (words[i].text === inputText.trim()) {
+        gameArea.removeChild(words[i].el);
+        words.splice(i, 1);
+        score++;
+        scoreEl.textContent = 'Score: ' + score;
+        input.value = '';
+
+        if (score % 5 === 0) {
+          speed += 0.2;
+          if (spawnInterval > 700) {
+            clearInterval(spawnTimer);
+            spawnInterval -= 200;
+            spawnTimer = setInterval(spawnWord, spawnInterval);
+          }
+        }
+        return;
+      }
+    }
+  }
+
+  function endGame() {
+    gameRunning = false;
+    clearInterval(spawnTimer);
+    input.disabled = true;
+    finalScoreEl.textContent = `Score: ${score}`;
+    gameOverEl.style.display = 'block';
+  }
+
+  function restartGame() {
+    startGame(Object.keys(wordLists).find(diff => wordLists[diff] === wordList));
+  }
+
+  function backToMenu() {
+    clearInterval(spawnTimer);
+    words.forEach(w => w.el.remove());
+    words = [];
+    input.value = '';
+    gameArea.style.display = 'none';
+    menu.style.display = 'block';
+    gameOverEl.style.display = 'none';
+  }
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      checkWord(input.value);
+    }
+  });
+
+  function gameLoop() {
+    if (gameRunning) {
+      updateWords();
+      requestAnimationFrame(gameLoop);
+    }
+  }
+</script>
+
+</body>
+</html>

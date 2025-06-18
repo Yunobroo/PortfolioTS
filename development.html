@@ -6,7 +6,6 @@
     <title>Development Project</title>
     <link rel="stylesheet" href="css/development-project.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
-    <script src="js/lightbox.js" defer></script>
 
 
 
@@ -20,7 +19,15 @@
     height="40"
     style="cursor: pointer; transition: transform 1s ease;"
   >
-
+  <div style="
+    color: #ffcc00; 
+    font-size: 14px; 
+    margin-top: 6px; 
+    font-weight: 600; 
+    letter-spacing: 2px; 
+    text-shadow: 0 0 4px rgba(255, 204, 0, 0.7);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  ">Menu</div>
   <nav id="nav-menu" class="hidden" style="
     position: absolute;
     top: 50px;
@@ -48,7 +55,7 @@
         </ul>
       </li>
       <li style="margin-bottom:10px;">
-        <a href="leeruitkomsten.html" class="nav-link" style="color:white; text-decoration:none;">Leeruitkomsten</a>
+        <a href="Lo's.html" class="nav-link" style="color:white; text-decoration:none;">Leeruitkomsten</a>
       </li>
       <li>
         <div style="display: flex; align-items: center; justify-content: space-between;">
@@ -127,82 +134,117 @@
     }
   </style>
 </header>
-
-
 <body>
-    
-
-
-<section class="project parallax">
+<section class="project parallax" id="intro-development">
     <h2 class="fancy-title">Development Project</h2>
 </section>
 
-<section class="project fade-in">
+<section class="project fade-in" id="over-het-project">
     <h2>Over het project</h2>
     <p>Het Development Project is het vervolg op het Create That UX-project. In dit project hebben wij de digitale ervaring verder uitgewerkt en daadwerkelijk ontwikkeld. De focus lag hierbij op het realiseren van een interactieve en toegankelijke webapplicatie gebaseerd op de eerder ontworpen UX-ervaringen voor visuele beperkingen.</p>
 </section>
 
-<section class="project fade-in">
+<section class="project fade-in" id="doel">
     <h2>Doel</h2>
-    <p>Het doel van dit project was om het <strong>Create-That-Ux</strong> project nu volledig werkend te krijgen, met een ervaringsplein, en 4 ervaring die volledig uitgeprobeerd konden worden.</p>
-    <a href="LINK_NAAR_PROJECTPLAN" class="download-link" download>Bekijk Projectplan</a>
-</section>
-
-<section class="project fade-in">
-    <h2>Ontwikkelde onderdelen</h2>
-    <p>Ik was verantwoordelijk voor de implementatie van de simulatie voor centraal zicht en kokerzicht. Hier zie je de eindresultaten, inclusief screenshots en een korte demonstratievideo.
-        (Dit project is nog in ontwikkeling, dus er zijn nog geen fotos van de eindresultaten beschikbaar. De pagina is er wel al, maar de video en foto's zijn nog niet toegevoegd.)</p>
-    </p>
-
-    <h3>Kokerzicht Simulatie</h3>
+    <p>Het doel van dit project was om het <strong>Create-That-UX</strong> project nu volledig werkend te krijgen, met een ervaringsplein, en vier ervaringen die volledig uitgeprobeerd konden worden.</p>
+    <p>De projectplanning hebben we ook gestructureerd aangepakt. Ik maakte de twee ervaringen die ik tijdens het Create-That-UX project al ontworpen had. Mijn projectpartner nam de ervaring die hij zelf eerder had gemaakt opnieuw op zich, en nam daarnaast de ervaring van een andere oud-groepsgenoot over. Omdat we samen in dezelfde UX-projectgroep hadden gezeten, konden we eenvoudig voortbouwen op wat we eerder hadden gemaakt.</p>
     <div class="media-gallery">
         <div class="image-container">
-            <img src="images/kokerzicht_dev_1.png" alt="Kokerzicht simulatie" onclick="openLightbox(this)">
-            <p class="caption">Startscherm Kokerzicht</p>
+            <img src="images/Trellodevelopment.png" alt="Trello Board" onclick="openLightbox(this)">
+
+            <p class="caption">Trello Board met taken</p>
         </div>
-        <div class="image-container">
-            <img src="images/kokerzicht_dev_2.png" alt="Kokerzicht spel" onclick="openLightbox(this)">
-            <p class="caption">Mini-game met kokerzicht</p>
-        </div>
-        <video controls>
-            <source src="videos/kokerzicht_demo.mp4" type="video/mp4">
-            Je browser ondersteunt deze video niet.
-        </video>
+    </div>
+</section>
+
+<section class="project fade-in" id="ontwikkelde-onderdelen">
+    <h2>Ontwikkelde onderdelen</h2>
+    <p>Ik was verantwoordelijk voor de implementatie van de simulatie voor centraal zicht en kokerzicht. Hier zie je de eindresultaten, inclusief een interactieve ervaring, waarin je de simulaties zelf kunt proberen.</p>
+
+    <h3>Kokervisie Simulatie</h3>
+    <div class="media-gallery">
+        <iframe src="https://cardanervaringts.infinityfreeapp.com/kokervisie.php" width="100%" height="600px" title="Kokerzicht Simulatie"></iframe>
     </div>
 
     <h3>Centraal Zicht Simulatie</h3>
     <div class="media-gallery">
-        <div class="image-container">
-            <img src="images/centraalzicht_dev_1.png" alt="Centraalzicht simulatie" onclick="openLightbox(this)">
-            <p class="caption">Simulatie Centraal Zicht</p>
-        </div>
-        <video controls>
-            <source src="videos/centraalzicht_demo.mp4" type="video/mp4">
-            Je browser ondersteunt deze video niet.
-        </video>
+        <iframe src="https://cardanervaringts.infinityfreeapp.com/centraalzicht.php" width="100%" height="600px" title="Centraal Zicht Simulatie"></iframe>
     </div>
 </section>
 
-<section class="project fade-in">
+<section class="project fade-in" id="code-en-samenwerking">
     <h2>Code en samenwerking</h2>
-    <p>We hebben tijdens dit project gebruik gemaakt van github om onze gemaakte ervaringen te delen, bij te houden en te koppelen, zo kunnen we als er eventueel wat fout gaat, of onze code kwijtraakt, altijd bij onze code. Zo is er ook een beter overzicht te houden van wat er al <strong>Wel</strong> of <strong>Niet</strong> gedaan is.</p>
-    <a href="https://github.com/Tijmen-Degr/Development-Cardan" class="download-link" target="_blank">Bekijk de GitHub Repository</a>
+    <p>Gedurende dit project maakten we gebruik van <strong>GitHub</strong> om onze ontwikkelde code op een georganiseerde manier te beheren. Hierdoor konden we eenvoudig de voortgang bijhouden en tegelijkertijd aan verschillende onderdelen werken zonder elkaars werk te overschrijven.</p>
+
+    <p>We gebruikten ook <strong>GitHub Issues</strong> om de taken onder elkaar te verdelen en overzicht te houden. Zo wisten we steeds wat nog gedaan moest worden en konden we snel bijsturen als iets niet werkte. Daarnaast was het handig om eerdere versies van de code te kunnen terughalen als dat nodig was.</p>
+
+    <p>Wil je meer leren over hoe we GitHub gebruikten om deze ervaringen te ontwikkelen? Bekijk dan de volledige code op onze <a href="https://github.com/Tijmen-Degr/Development-Cardan" class="download-link" target="_blank">GitHub Repository</a>.</p>
 </section>
 
-<section class="project fade-in">
+<section class="project fade-in" id="feedback-development">
+    <h2>Feedback en Verbeteringen</h2>
+    <p>
+        Tijdens het ontwikkelen van het ervaringsplein heb ik de ervaringen meerdere keren laten testen door mensen uit mijn directe omgeving — zoals vrienden, familie, kennissen en een aantal medestudenten van de opleiding (maar niet uit mijn eigen klas). Deze testrondes leverden waardevolle feedback op waarmee ik de gebruiksvriendelijkheid en duidelijkheid van de pagina verder heb verbeterd.
+    </p>
+
+    <h3>📄 Te veel tekst bij binnenkomst</h3>
+    <p>
+        Een veelgehoorde opmerking was dat er bij het openen van de pagina direct een grote hoeveelheid tekst te zien was. Bezoekers gaven aan liever eerst een visueel overzicht van de ervaringen te willen, in plaats van lange paragrafen. Op basis hiervan heb ik de tekst herschreven en korter gemaakt, en verdeeld over meerdere secties met duidelijke koppen. De inhoud is ook visueel onderbroken door afbeeldingen, zodat het geheel minder overweldigend oogt.
+    </p>
+
+    <h3>🎯 Onduidelijkheid over wat klikbaar is</h3>
+    <p>
+        Sommige testers wisten in eerste instantie niet waar ze moesten klikken om een simulatie te starten. De knoppen waren te subtiel vormgegeven. Ik heb dit aangepast door de klikbare blokken een opvallender ontwerp te geven, inclusief een hover-effect en duidelijke tekst zoals "Start ervaring" of "Bekijk simulatie".
+    </p>
+
+    <h3>🧭 Onlogische volgorde van ervaringen</h3>
+    <p>
+        Een paar mensen begonnen met de kleurenblindheid-simulatie en vonden die meteen lastig. Daarom heb ik de volgorde van de ervaringen aangepast, zodat gebruikers starten met een eenvoudigere ervaring zoals monoculair zicht. De meer complexe of intensieve ervaringen volgen daarna.
+    </p>
+
+    <h3>📝 Geen uitleg bij de simulatieblokken</h3>
+    <p>
+        Verschillende testers gaven aan dat ze niet precies wisten wat ze konden verwachten wanneer ze op een blok klikten. Er stond alleen een titel, zonder verdere context. Nu bevat elk ervaringsblok een korte beschrijving van wat je gaat doen, zodat gebruikers beter voorbereid zijn.
+    </p>
+
+    <h3>📱 Mobiele weergave was onrustig</h3>
+    <p>
+        Op mobiele telefoons versprongen de blokken soms en was de tekst lastig leesbaar. Met behulp van media queries heb ik de layout aangepast zodat deze zich netjes aanpast aan kleinere schermen. Knoppen zijn groter gemaakt en de tekst schaalt nu beter mee.
+    </p>
+
+    <h3>✨ Geen visuele feedback bij interactie</h3>
+    <p>
+        Een subtiele maar belangrijke opmerking kwam van meerdere testers: als je met je muis over een knop ging, gebeurde er niets visueels. Daardoor voelde het alsof de site "niet reageerde". Dit heb ik opgelost door animaties en hover-effecten toe te voegen aan alle interactieve elementen.
+    </p>
+
+    <p>
+        Dankzij deze feedback heb ik het ervaringsplein kunnen verbeteren tot een toegankelijk, overzichtelijk en gebruiksvriendelijk platform dat uitnodigt om de verschillende simulaties te verkennen. Het iteratieve testen heeft laten zien hoe waardevol het is om met een frisse blik naar je ontwerp te laten kijken — en hoe kleine aanpassingen een groot verschil maken.
+    </p>
+</section>
+
+<section class="project fade-in" id="figma-design">
     <h2>Figma Design</h2>
-    <p>Bekijk hier het originele Create-That-UX Figma bestand waarop de development versie gebaseerd is:</p>
-    <a href="https://www.figma.com/design/FOH9oxsjnSPkeq4oPNKtBl/UX-project?node-id=40-70&t=UnCNtR3vqH6q8lwq-1" class="download-link" target="_blank">Bekijk Figma</a>
+    <p>Het project begon met het ontwerpen van interactieve simulaties die visuele beperkingen, zoals kokerzicht en verlies van centraal zicht, moesten nabootsen. Hiervoor gebruikte ik <strong>Figma</strong> als ontwerptool. Figma maakte het mogelijk om snel prototypen te ontwikkelen en verschillende ontwerpvarianten uit te proberen, zonder dat er al code geschreven hoefde te worden.</p>
+
+    <p>Tijdens het ontwerpproces was het belangrijk dat de ontwerpen zowel visueel aantrekkelijk als toegankelijk waren. Dit betekende dat ik goed moest nadenken over contrast, gebruiksvriendelijke interfaces en duidelijke navigatie. Het Figma-bestand fungeerde als een leidraad voor de ontwikkelfase, waarin ik de ontwerpen omzette naar werkende prototypes.</p>
+
+    <p>Hier kun je het originele Create-That-UX Figma bestand bekijken waarop de development versie is gebaseerd: <a href="https://www.figma.com/design/FOH9oxsjnSPkeq4oPNKtBl/UX-project?node-id=40-70&t=UnCNtR3vqH6q8lwq-1" class="download-link" target="_blank">Bekijk Figma</a>.</p>
 </section>
 
-<section class="project fade-in">
+<section class="project fade-in" id="resultaat-reflectie">
     <h2>Resultaat en reflectie</h2>
-    <p>Het project heeft me veel geleerd, ik heb beter geleerd hoe ik met git om moet gaan door bijvoorbeeld mijn visual studio code te linken aan git, en met gebruik van Codespaces gelijk m'n code te pushen naar een repository.</p>
+    <p>Het Development Project was een leerzame ervaring waarin ik veel heb geleerd — niet alleen over het technische aspect van het ontwikkelen van webapplicaties, maar ook over hoe belangrijk het is om duidelijke afspraken te maken en overzicht te houden tijdens het samenwerken. Ik heb mijn vaardigheden in <strong>Git</strong> verder ontwikkeld door Visual Studio Code te koppelen aan GitHub, waardoor ik mijn code eenvoudig kon beheren en bijwerken. Het gebruik van <strong>Codespaces</strong> stelde me in staat om mijn code direct te testen in een gesimuleerde ontwikkelomgeving, wat de efficiëntie van het project ten goede kwam.</p>
+
+    <p>Door het proces van ontwerpen en ontwikkelen te combineren, kreeg ik een goed inzicht in hoe belangrijk het is om vooraf goed na te denken over de gebruikerservaring en toegankelijkheid. Het was soms een uitdaging om de ontwerpkeuzes vanuit Figma om te zetten naar werkende code, maar door telkens feedback te vragen en te blijven verbeteren, kwam alles uiteindelijk samen.</p>
+
+    <p>Het belangrijkste dat ik uit dit project heb geleerd, is hoe waardevol iteratie is. Fouten maken hoort erbij — als je er maar van leert. Het moment dat alles echt werkte zoals bedoeld gaf veel voldoening, en dit project heeft mijn zelfvertrouwen als ontwerper en ontwikkelaar flink vergroot.</p>
 </section>
+
 
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
     <img id="lightbox-img" src="" alt="">
 </div>
+<script src="js/development.js"></script>
 
 
 </body>

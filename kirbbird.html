@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kirby's Sky Venture</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background: #000;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    #menuOverlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom right, #5ecbff, #ffcef7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 10;
+      color: #2b2b2b;
+      text-align: center;
+      padding: 20px;
+    }
+    #menuOverlay h1 {
+      font-size: 48px;
+      color: #ff3cac;
+      margin-bottom: 10px;
+    }
+    #menuOverlay p {
+      font-size: 18px;
+      margin: 10px 0;
+      max-width: 400px;
+    }
+    #menuOverlay button {
+      padding: 12px 24px;
+      font-size: 20px;
+      background: #ff69b4;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      margin: 10px;
+      transition: background 0.3s;
+    }
+    #menuOverlay button:hover {
+      background: #ff3b9c;
+    }
+  </style>
+</head>
+<body>
+  <div id="menuOverlay">
+    <h1>Kirby's Sky Venture</h1>
+    <p>Help Kirby vliegen door de lucht!</p>
+    <p>✦ Tik of druk op spatie om Kirby te laten zweven.<br>
+       ✦ Ontwijk de pijpen.<br>
+       ✦ Scoor zoveel mogelijk punten.</p>
+    <button onclick="startGame()">Start avontuur</button>
+  </div>
+  <canvas id="gameCanvas"></canvas>
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const overlay = document.getElementById("menuOverlay");
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const kirbyImg = new Image();
+    kirbyImg.src = "images/KRtDLD_Kirby_Float.png";
+
+    const bgImg = new Image();
+    bgImg.src = "images/kirbybg.jpg";
+
+    let kirby = { x: 80, y: 200, width: 40, height: 40, velocity: 0 };
+    let gravity = 0.5;
+    let lift = -8;
+    let pipes = [];
+    let pipeGap = 190;
+    let frame = 0;
+    let score = 0;
+    let gameRunning = false;
+
+    function startGame() {
+      kirby.y = canvas.height / 2;
+      kirby.velocity = 0;
+      pipes = [];
+      frame = 0;
+      score = 0;
+      gameRunning = true;
+      overlay.style.display = "none";
+      requestAnimationFrame(gameLoop);
+    }
+
+    function showMainMenu() {
+      overlay.innerHTML = `
+        <h1>Kirby's Sky Venture</h1>
+        <p>Help Kirby vliegen door de lucht!</p>
+        <p>✦ Tik of druk op spatie om Kirby te laten zweven.<br>
+           ✦ Ontwijk de pijpen.<br>
+           ✦ Scoor zoveel mogelijk punten.</p>
+        <button onclick='startGame()'>Start avontuur</button>
+      `;
+      overlay.style.display = "flex";
+    }
+
+    function gameLoop() {
+      if (!gameRunning) return;
+      update();
+      draw();
+      requestAnimationFrame(gameLoop);
+    }
+
+    function update() {
+      frame++;
+      kirby.velocity += gravity;
+      kirby.y += kirby.velocity;
+
+      if (kirby.y > canvas.height || kirby.y < 0) {
+        endGame();
+      }
+
+      if (frame % 180 === 0) {
+        const top = Math.random() * (canvas.height - pipeGap - 100) + 20;
+        pipes.push({ x: canvas.width, top: top, bottom: top + pipeGap });
+      }
+
+      pipes.forEach(pipe => {
+        pipe.x -= 2;
+
+        if (
+          kirby.x < pipe.x + 50 &&
+          kirby.x + kirby.width > pipe.x &&
+          (kirby.y < pipe.top || kirby.y + kirby.height > pipe.bottom)
+        ) {
+          endGame();
+        }
+
+        if (pipe.x + 50 === kirby.x) score++;
+      });
+
+      pipes = pipes.filter(pipe => pipe.x + 50 > 0);
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+
+      // Draw Kirby
+      ctx.drawImage(kirbyImg, kirby.x, kirby.y, kirby.width, kirby.height);
+
+      // Draw pipes
+      ctx.fillStyle = "#228B22";
+      pipes.forEach(pipe => {
+        ctx.fillRect(pipe.x, 0, 50, pipe.top);
+        ctx.fillRect(pipe.x, pipe.bottom, 50, canvas.height - pipe.bottom);
+      });
+
+      // Score
+      ctx.fillStyle = "#fff";
+      ctx.font = "24px sans-serif";
+      ctx.fillText("Score: " + score, 10, 30);
+    }
+
+    function flap() {
+      kirby.velocity = lift;
+    }
+
+    function endGame() {
+      gameRunning = false;
+      overlay.innerHTML = `
+        <h1>Game Over</h1>
+        <p>Score: ${score}</p>
+        <button onclick='startGame()'>Opnieuw proberen</button>
+        <button onclick='showMainMenu()'>Menu</button>
+      `;
+      overlay.style.display = "flex";
+    }
+
+    window.addEventListener("keydown", e => {
+      if (e.code === "Space") flap();
+    });
+    window.addEventListener("mousedown", flap);
+  </script>
+</body>
+</html>

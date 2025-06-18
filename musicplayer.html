@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Weeknd Record Player</title>
+  <style>
+   body {
+  background: #0c0c0c;
+  color: #eee;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+h1 {
+  margin-bottom: 2rem;
+  color: #a67449;
+  font-size: 2rem;
+}
+
+select {
+  padding: 10px 14px;
+  font-size: 1rem;
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 4px;
+  margin-bottom: 2rem;
+  width: 90%;
+  max-width: 300px;
+}
+
+.record-player {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 2rem auto;
+}
+
+.record {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  animation: spin 6s linear infinite;
+  animation-play-state: paused;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+  border: 6px solid #a67449;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+
+button.play-btn {
+  padding: 12px 24px;
+  font-size: 1rem;
+  border: none;
+  background-color: #a67449;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+button.play-btn:hover {
+  background-color: #d28e4c;
+}
+
+.progress-container {
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+input[type="range"] {
+  flex: 1;
+  height: 6px;
+  appearance: none;
+  background: #333;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #a67449;
+  border: none;
+}
+
+.volume-control {
+  width: 90%;
+  max-width: 200px;
+  margin-top: 1rem;
+}
+
+footer {
+  margin-top: 4rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+.progress-container,
+.volume-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 90%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#currentTime,
+#duration,
+#volumeValue {
+  font-size: 0.9rem;
+  min-width: 40px;
+  color: #bbb;
+}
+
+#volumeIcon {
+  font-size: 1rem;
+  color: #aaa;
+}
+
+  </style>
+</head>
+<body>
+  <h1>The Weeknd – Favorite Tracks</h1>
+
+  <select id="trackSelect">
+    <option value="wicked-games.mp3" data-img="images/HUTvinyl.png">House of Balloons – Wicked Games</option>
+    <option value="the-birds-pt2.mp3" data-img="images/HUTvinyl.png">Thursday – The Birds Pt. 2</option>
+    <option value="till-dawn.mp3" data-img="images/HUTvinyl.png">Echoes of Silence – Till Dawn</option>
+    <option value="tears-in-the-rain.mp3" data-img="images/KLvinyl.png">Kiss Land – Tears in the Rain</option>
+    <option value="in-the-night.mp3" data-img="images/BBTMvinyl.png">BBTM – In the Night</option>
+    <option value="love-to-lay.mp3" data-img="images/STARBOYvinyl.png">Starboy – Love to Lay</option>
+    <option value="call-out-my-name.mp3" data-img="images/MDMvinyl.webp">MDM – Call Out My Name</option>
+    <option value="heartless.mp3" data-img="images/AHvinyl.png">After Hours – Heartless</option>
+    <option value="less-than-zero.mp3" data-img="images/DAWNFMvinyl.png">Dawn FM – Less Than Zero</option>
+    <option value="open-hearts.mp3" data-img="images/HUTvinyl.png">Hurry Up Tomorrow – Open Hearts</option>
+  </select>
+
+  <div class="record-player">
+    <img id="record" class="record" src="images/HUTvinyl.png" alt="Vinyl artwork">
+  </div>
+
+ <div class="controls">
+  <button id="playBtn">▶ Play</button>
+
+  <div class="progress-container">
+    <span id="currentTime">0:00</span>
+    <input type="range" id="progress" value="0" min="0" max="100" />
+    <span id="duration">0:00</span>
+  </div>
+
+  <div class="volume-container">
+    <span id="volumeIcon">🔊</span>
+    <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+    <span id="volumeValue">100%</span>
+  </div>
+</div>
+
+
+  <audio id="audio" src="audio/wicked-games.mp3"></audio>
+
+  <script>
+    const playBtn = document.getElementById("playBtn");
+    const record = document.getElementById("record");
+    const audio = document.getElementById("audio");
+    const trackSelect = document.getElementById("trackSelect");
+    const progress = document.getElementById("progress");
+    const volume = document.getElementById("volume");
+
+    // Play/pause toggle
+    playBtn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        record.style.animationPlayState = "running";
+        playBtn.textContent = "⏸ Pause";
+      } else {
+        audio.pause();
+        record.style.animationPlayState = "paused";
+        playBtn.textContent = "▶ Play";
+      }
+    });
+
+    // Track change
+    trackSelect.addEventListener("change", () => {
+      const selected = trackSelect.options[trackSelect.selectedIndex];
+      const src = selected.value;
+      const img = selected.dataset.img;
+
+      audio.src = `audio/${src}`;
+      record.src = img;
+      audio.play();
+      record.style.animationPlayState = "running";
+      playBtn.textContent = "⏸ Pause";
+    });
+
+    // Update progress bar
+    audio.addEventListener("timeupdate", () => {
+      const value = (audio.currentTime / audio.duration) * 100;
+      progress.value = value || 0;
+    });
+
+    // Seek
+    progress.addEventListener("input", () => {
+      audio.currentTime = (progress.value / 100) * audio.duration;
+    });
+
+    // Volume
+    volume.addEventListener("input", () => {
+      audio.volume = volume.value;
+    });
+
+    // Stop spinning when done
+    audio.addEventListener("ended", () => {
+      record.style.animationPlayState = "paused";
+      playBtn.textContent = "▶ Play";
+    });
+    const currentTimeLabel = document.getElementById("currentTime");
+const durationLabel = document.getElementById("duration");
+const volumeValue = document.getElementById("volumeValue");
+
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${s < 10 ? '0' + s : s}`;
+}
+
+audio.addEventListener("loadedmetadata", () => {
+  durationLabel.textContent = formatTime(audio.duration);
+});
+
+audio.addEventListener("timeupdate", () => {
+  const value = (audio.currentTime / audio.duration) * 100;
+  progress.value = value || 0;
+  currentTimeLabel.textContent = formatTime(audio.currentTime);
+});
+
+volume.addEventListener("input", () => {
+  audio.volume = volume.value;
+  volumeValue.textContent = `${Math.round(volume.value * 100)}%`;
+});
+
+  </script>
+</body>
+</html>

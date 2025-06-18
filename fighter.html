@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bump Brawlers</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    #menu {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
+      color: white;
+    }
+
+    #menu h1 {
+      font-size: 3rem;
+      color: #00cfff;
+      text-shadow: 0 0 15px #00cfff;
+    }
+
+    #menu p {
+      max-width: 600px;
+      margin: 1rem auto;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      background: rgba(0, 207, 255, 0.08);
+      color: #00cfff;
+      border: 2px solid #00cfff;
+      border-radius: 8px;
+      text-shadow: 0 0 5px #00cfff;
+      box-shadow: 0 0 20px rgba(0, 207, 255, 0.5);
+      transition: transform 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    #arena {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 1200px;
+      height: 800px;
+      border: 8px solid #00cfff;
+      box-shadow: 0 0 30px #00cfff;
+      overflow: hidden;
+    }
+
+    .arena-style-1 {
+      background: radial-gradient(circle at center, #222 0%, #000 100%);
+    }
+
+    .arena-style-2 {
+      background: repeating-linear-gradient(45deg, #001a33, #001a33 10px, #000 10px, #000 20px);
+    }
+
+    #bg-anim {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: repeating-radial-gradient(circle, rgba(0,207,255,0.1) 1px, transparent 2px);
+      background-size: 40px 40px;
+      animation: drift 30s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes drift {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-200px, -400px); }
+    }
+
+    .player {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-radius: 20%;
+    }
+
+    .player1 {
+      background: #00cfff;
+    }
+
+    .player2 {
+      background: #ffea00;
+    }
+
+    #gameOver {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 1);
+      padding: 30px 60px;
+      border: 3px solid #00cfff;
+      font-size: 2rem;
+      display: none;
+      z-index: 10;
+      text-align: center;
+    }
+
+    #restartBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #00cfff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    #restartBtn:hover {
+      background: #33e5ff;
+    }
+
+    #countdown {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 5rem;
+      color: #00cfff;
+      text-shadow: 0 0 30px #00cfff;
+      z-index: 15;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="menu">
+  <h1>Bump Brawlers</h1>
+  <p><strong>Multiplayer:</strong> Duw de ander uit de arena!<br />
+     Speler 1: W A S D<br />
+     Speler 2: Pijltjestoetsen<br /><br />
+     <strong>AI Mode:</strong> Speel alleen tegen een agressieve AI. Blijf zelf in de ring!<br /><br />
+     Kies een modus:</p>
+  <button class="btn" onclick="startGame('multiplayer')">Multiplayer</button>
+  <button class="btn" onclick="startGame('ai')">1 Speler vs AI</button>
+</div>
+
+<div id="arena">
+  <div id="bg-anim"></div>
+  <div id="player1" class="player player1"></div>
+  <div id="player2" class="player player2"></div>
+</div>
+
+<div id="gameOver">
+  <div id="winnerText">Speler wint!</div>
+  <button id="restartBtn" onclick="location.reload()">Opnieuw</button>
+</div>
+
+<div id="countdown"></div>
+
+<script>
+  const arena = document.getElementById("arena");
+  const menu = document.getElementById("menu");
+  const p1 = document.getElementById("player1");
+  const p2 = document.getElementById("player2");
+  const winnerText = document.getElementById("winnerText");
+  const gameOver = document.getElementById("gameOver");
+  const countdown = document.getElementById("countdown");
+
+  let mode = '';
+  let p1Pos = { x: 200, y: 400 };
+  let p2Pos = { x: 960, y: 400 };
+  let p1Vel = { x: 0, y: 0 };
+  let p2Vel = { x: 0, y: 0 };
+
+  const moveSpeed = 0.8;
+  const friction = 0.85;
+  const knockback = 40;
+
+  let keys = {};
+  let gameRunning = false;
+
+  document.addEventListener("keydown", e => keys[e.key] = true);
+  document.addEventListener("keyup", e => keys[e.key] = false);
+
+  function startGame(selectedMode) {
+    mode = selectedMode;
+    menu.style.display = "none";
+    arena.classList.remove("arena-style-1", "arena-style-2");
+    arena.classList.add(Math.random() > 0.5 ? "arena-style-1" : "arena-style-2");
+    arena.style.display = "block";
+
+    countdownIntro(() => {
+      gameRunning = true;
+      loop();
+    });
+  }
+
+  function countdownIntro(callback) {
+    let count = 3;
+    countdown.style.display = "block";
+    countdown.textContent = count;
+    const interval = setInterval(() => {
+      count--;
+      if (count === 0) {
+        countdown.textContent = "GO!";
+      } else if (count < 0) {
+        clearInterval(interval);
+        countdown.style.display = "none";
+        callback();
+      } else {
+        countdown.textContent = count;
+      }
+    }, 1000);
+  }
+
+  function updatePlayers() {
+    if (!gameRunning) return;
+
+    if (keys["w"]) p1Vel.y -= moveSpeed;
+    if (keys["s"]) p1Vel.y += moveSpeed;
+    if (keys["a"]) p1Vel.x -= moveSpeed;
+    if (keys["d"]) p1Vel.x += moveSpeed;
+
+    if (mode === "multiplayer") {
+      if (keys["ArrowUp"]) p2Vel.y -= moveSpeed;
+      if (keys["ArrowDown"]) p2Vel.y += moveSpeed;
+      if (keys["ArrowLeft"]) p2Vel.x -= moveSpeed;
+      if (keys["ArrowRight"]) p2Vel.x += moveSpeed;
+    } else if (mode === "ai") {
+      const dx = p1Pos.x - p2Pos.x;
+      const dy = p1Pos.y - p2Pos.y;
+      const len = Math.hypot(dx, dy);
+      if (len > 0) {
+        p2Vel.x += (dx / len) * moveSpeed * 0.6;
+        p2Vel.y += (dy / len) * moveSpeed * 0.6;
+      }
+    }
+
+    p1Pos.x += p1Vel.x;
+    p1Pos.y += p1Vel.y;
+    p2Pos.x += p2Vel.x;
+    p2Pos.y += p2Vel.y;
+
+    p1Vel.x *= friction;
+    p1Vel.y *= friction;
+    p2Vel.x *= friction;
+    p2Vel.y *= friction;
+
+    const dx = p1Pos.x - p2Pos.x;
+    const dy = p1Pos.y - p2Pos.y;
+    const dist = Math.hypot(dx, dy);
+    if (dist < 40) {
+      const nx = dx / dist;
+      const ny = dy / dist;
+
+      p1Vel.x += nx * knockback;
+      p1Vel.y += ny * knockback;
+      p2Vel.x -= nx * knockback;
+      p2Vel.y -= ny * knockback;
+    }
+
+    p1.style.left = p1Pos.x + "px";
+    p1.style.top = p1Pos.y + "px";
+    p2.style.left = p2Pos.x + "px";
+    p2.style.top = p2Pos.y + "px";
+
+    if (isOut(p1Pos)) endGame(mode === "multiplayer" ? "Speler 2 wint!" : "AI wint!");
+    if (isOut(p2Pos)) endGame("Speler 1 wint!");
+  }
+
+  function isOut(pos) {
+    return pos.x < -20 || pos.x > 1180 || pos.y < -20 || pos.y > 780;
+  }
+
+  function endGame(text) {
+    gameRunning = false;
+    winnerText.textContent = text;
+    gameOver.style.display = "block";
+  }
+
+  let loopId;
+  function loop() {
+    updatePlayers();
+    loopId = requestAnimationFrame(loop);
+  }
+</script>
+
+</body>
+</html>

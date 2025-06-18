@@ -1,32 +1,78 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wii Home Menu</title>
-    <link rel="stylesheet" href="css/personal-project.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wii Home Menu</title>
+  <link rel="stylesheet" href="css/personal-project.css" />
 </head>
 
 <body>
+  <img src="images/wiicursor_by_tonysbruger_dhdwtkp-fullview.png" id="wii-pointer" alt="Wii Pointer" />
 
-  <img src="images/wiicursor_by_tonysbruger_dhdwtkp-fullview.png" id="wii-pointer" alt="Wii Pointer">
+<div class="wii-home">
+  <div class="channel-grid">
 
-  <div class="wii-home">
-      <div class="channel-grid">
-          <div class="channel" data-url="step1.html">Stap 1</div>
-          <div class="channel" data-url="step2.html">Stap 2</div>
-          <div class="channel" data-url="step3.html">Stap 3</div>
-          <div class="channel" data-url="step4.html">Stap 4</div>
-          <div class="channel" data-url="rock-paper-scissors.html">Steen Papier Schaar</div>
-          <div class="channel" data-url="click-the-circle.html">Click the Circle</div>
-          
-      </div>
+    <!-- ECHTE GAMES -->
+    <div class="channel" data-url="rps.html">
+      <img src="images/Rock-Paper-Scissors menuch.png" class="channel-preview" alt="Rock Paper Scissors">
+    </div>
+
+    <div class="channel" data-url="click-the-circle.html">
+      <img src="images/Click the Circle menuch.png" class="channel-preview" alt="Click the Circle">
+    </div>
+
+    <div class="channel" data-url="dodgegame.html">
+      <img src="images/Laser-Dodge menuch.png" class="channel-preview" alt="Dodge Game">
+    </div>
+
+   <div class="channel" data-url="#">
+  <img src="images/Mii-channel.jpg" class="channel-preview" alt="Mii Kanaal">
+</div>
+
+    <div class="channel" data-url="musicplayer.html">
+      <img src="images/music-playermenuch.png" class="channel-preview" alt="Music Player">
+    </div>
+
+    <div class="channel" data-url="portfolio.html">
+      <img src="images/portfolio-thumb.png" class="channel-preview" alt="Portfolio">
+    </div>
+
+    <div class="channel" data-url="kirbbird.html">
+      <img src="images/Kirby's Sky Venture.png" class="channel-preview" alt="Kirby's Sky Venture">
+    </div>
+
+    <div class="channel" data-url="neonsteps.html">
+      <img src="images/NeonSteps.png" class="channel-preview" alt="Neon Steps">
+    </div>
+
+    <div class="channel" data-url="fighter.html">
+      <img src="images/Bb final design.png" class="channel-preview" alt="Fighting Game">
+    </div>
+
+   <div class="channel" data-url="#">
+  <img src="images/wii-photo.png" class="channel-preview" alt="Weer Kanaal">
+</div>
+
+
+
+    <div class="channel" data-url="starcatcher.html">
+      <img src="images/Catching Stars!.png" class="channel-preview" alt="Star Catcher">
+    </div>
+
+    <div class="channel" data-url="typerush.html">
+  <img src="images/typerush.png" class="channel-preview" alt="Type Rush">
+</div>
+
+
+  </div>
+</div>
+
+
+
   </div>
 
-
-  <audio id="wiiStartup" src="audio/20 Minutes of Nintendo Wii Menu Music (Authentic)-[AudioTrimmer.com]-[AudioTrimmer.com](1).mp3"></audio>
-
-
+  <audio id="wiiStartup" src="audio/wiimenu.mp3" autoplay></audio>
   <script src="js/personal-project.js"></script>
 </body>
 </html>

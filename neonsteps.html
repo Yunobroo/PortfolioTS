@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dans De Richting</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: 'Cinzel', serif;
+      overflow: hidden;
+    }
+
+    #menu {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 10;
+    }
+
+    .difficulty-btn {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      background: rgba(255, 0, 87, 0.08);
+      color: #ff0057;
+      border: 2px solid #ff0057;
+      border-radius: 8px;
+      text-shadow: 0 0 5px #ff0057;
+      box-shadow: 0 0 20px rgba(255, 0, 87, 0.5);
+      transition: transform 0.2s ease;
+    }
+
+    .difficulty-btn:hover {
+      transform: scale(1.1);
+    }
+
+    #gameArea {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: none;
+      background: linear-gradient(to bottom, #010101, #0b0010);
+    }
+
+    #gameArea::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        to top,
+        rgba(255, 0, 87, 0.08) 0px,
+        rgba(255, 0, 87, 0.08) 1px,
+        transparent 1px,
+        transparent 20px
+      ), repeating-linear-gradient(
+        to right,
+        rgba(255, 0, 87, 0.08) 0px,
+        rgba(255, 0, 87, 0.08) 1px,
+        transparent 1px,
+        transparent 20px
+      );
+      z-index: 0;
+    }
+
+    .arrow {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 1;
+    }
+
+    .arrow.left  { background-image: url('images/left.png'); }
+    .arrow.up    { background-image: url('images/up.png'); }
+    .arrow.down  { background-image: url('images/down.png'); }
+    .arrow.right { background-image: url('images/right.png'); }
+
+    .hit-bar {
+      position: absolute;
+      bottom: 30px;
+      height: 60px;
+      width: 260px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: space-between;
+      z-index: 2;
+    }
+
+    .hit-spot {
+      width: 60px;
+      height: 60px;
+      border: 2px solid white;
+      opacity: 0.3;
+    }
+
+    #score {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 1.5rem;
+      z-index: 3;
+    }
+
+    #game-over {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      background: rgba(0,0,0,0.8);
+      padding: 20px 40px;
+      border: 2px solid #ff0057;
+      border-radius: 10px;
+      text-align: center;
+      display: none;
+      z-index: 20;
+    }
+
+    #restart-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #ff0057;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff0057;
+    }
+
+    #restart-btn:hover {
+      transform: scale(1.05);
+    }
+
+    #haste-banner {
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #ffea00;
+      font-size: 2rem;
+      text-shadow: 0 0 15px #ffea00;
+      display: none;
+      z-index: 10;
+    }
+.title-glow {
+  font-size: 3rem;
+  color: #ff0057;
+  text-shadow: 0 0 15px #ff0057, 0 0 40px #ff0057;
+  margin-bottom: 2rem;
+  z-index: 2;
+}
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  z-index: 2;
+}
+
+
+
+@keyframes star-scroll {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-500px, -1000px); }
+}
+
+.grid-floor {
+  position: absolute;
+  bottom: 0;
+  height: 250px;
+  width: 100%;
+  background:
+    repeating-linear-gradient(to top, rgba(255, 0, 87, 0.1) 0px, rgba(255, 0, 87, 0.1) 1px, transparent 1px, transparent 20px),
+    repeating-linear-gradient(to right, rgba(255, 0, 87, 0.1) 0px, rgba(255, 0, 87, 0.1) 1px, transparent 1px, transparent 20px);
+  transform: perspective(800px) rotateX(60deg);
+  transform-origin: bottom;
+  z-index: 0;
+}
+
+.grid-floor {
+  pointer-events: none;
+  z-index: 0;
+}
+.instructions {
+  font-size: 1rem;
+  color: #ffcccc;
+  text-shadow: 0 0 5px #ff0057;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+
+  </style>
+</head>
+<body>
+<body>
+  <div class="stars"></div>
+  <div class="grid-floor"></div>
+
+ <div id="menu">
+  <h1 class="title-glow">Dans De Richting</h1>
+
+  <p class="instructions">
+    Gebruik de pijltjestoetsen om op het juiste moment de pijlen te raken wanneer ze het vak bereiken.<br />
+    Hoe beter je timing, hoe hoger je score. Mis je een pijl? Dan is het game over!<br />
+    <br />
+    In de "Gestoord" modus activeer je soms HASTE: alles versnelt tijdelijk ⚡
+  </p>
+
+  <div class="button-container">
+    <button class="difficulty-btn" onclick="startGame('easy')">Makkelijk</button>
+    <button class="difficulty-btn" onclick="startGame('normal')">Normaal</button>
+    <button class="difficulty-btn" onclick="startGame('hard')">Moeilijk</button>
+    <button class="difficulty-btn" onclick="startGame('insane')">Gestoord</button>
+  </div>
+</div>
+
+
+
+
+
+  <div id="gameArea">
+    <div id="haste-banner">⚡ HASTE MODE ⚡</div>
+    <div class="hit-bar">
+      <div class="hit-spot" data-dir="left"></div>
+      <div class="hit-spot" data-dir="up"></div>
+      <div class="hit-spot" data-dir="down"></div>
+      <div class="hit-spot" data-dir="right"></div>
+    </div>
+    <div id="score">Score: 0</div>
+    <div id="game-over">
+      <div>💀 Game Over</div>
+      <div id="final-score"></div>
+      <button id="restart-btn" onclick="restartGame()">Opnieuw</button>
+    </div>
+  </div>
+
+  <script>
+    const gameArea = document.getElementById('gameArea');
+    const menu = document.getElementById('menu');
+    const scoreEl = document.getElementById('score');
+    const gameOverEl = document.getElementById('game-over');
+    const finalScoreEl = document.getElementById('final-score');
+    const hasteBanner = document.getElementById('haste-banner');
+
+    const directions = ['left', 'up', 'down', 'right'];
+    const keys = {
+      ArrowLeft: 'left',
+      ArrowUp: 'up',
+      ArrowDown: 'down',
+      ArrowRight: 'right'
+    };
+
+    let score = 0;
+    let arrows = [];
+    let gameRunning = false;
+    let speed = 2;
+    let baseSpeed = 2;
+    let spawnRate = 1000;
+    let spawnInterval;
+    let inHaste = false;
+    let hasteRemaining = 0;
+    let difficulty = '';
+
+    function startGame(diff) {
+      difficulty = diff;
+      menu.style.display = 'none';
+      gameArea.style.display = 'block';
+      score = 0;
+      scoreEl.textContent = 'Score: 0';
+      gameOverEl.style.display = 'none';
+      arrows = [];
+      gameRunning = true;
+
+      if (diff === 'easy') {
+        baseSpeed = 1.5;
+        spawnRate = 1300;
+      } else if (diff === 'normal') {
+        baseSpeed = 2;
+        spawnRate = 1000;
+      } else if (diff === 'hard') {
+        baseSpeed = 3;
+        spawnRate = 750;
+      } else if (diff === 'insane') {
+        baseSpeed = 4.5;
+        spawnRate = 600;
+      }
+
+      speed = baseSpeed;
+
+      spawnInterval = setInterval(() => {
+        if (gameRunning) spawnArrow();
+      }, spawnRate);
+
+      gameLoop();
+    }
+
+    function spawnArrow() {
+      const dir = directions[Math.floor(Math.random() * directions.length)];
+      const arrow = document.createElement('div');
+      arrow.classList.add('arrow', dir);
+      arrow.dataset.dir = dir;
+
+      const index = directions.indexOf(dir);
+      arrow.style.left = (gameArea.clientWidth / 2 - 130 + index * 65) + 'px';
+      arrow.style.top = '-60px';
+
+      gameArea.appendChild(arrow);
+      arrows.push(arrow);
+    }
+
+    function updateArrows() {
+      arrows.forEach((arrow, i) => {
+        let y = parseFloat(arrow.style.top);
+        y += speed;
+        arrow.style.top = y + 'px';
+
+        if (y > gameArea.clientHeight) {
+          endGame();
+        }
+      });
+
+      if (inHaste && hasteRemaining > 0) {
+        hasteRemaining--;
+        if (hasteRemaining === 0) {
+          speed = baseSpeed;
+          inHaste = false;
+          hasteBanner.style.display = 'none';
+        }
+      }
+    }
+
+    function checkHit(dir) {
+      for (let i = 0; i < arrows.length; i++) {
+        const arrow = arrows[i];
+        const y = parseFloat(arrow.style.top);
+        if (arrow.dataset.dir === dir && y > gameArea.clientHeight - 130 && y < gameArea.clientHeight - 10) {
+          gameArea.removeChild(arrow);
+          arrows.splice(i, 1);
+          score++;
+          scoreEl.textContent = 'Score: ' + score;
+          flashHitSpot(dir);
+
+          if (difficulty === 'insane' && score % 20 === 0 && !inHaste) {
+            triggerHasteMode();
+          }
+
+          return;
+        }
+      }
+      endGame();
+    }
+
+function flashHitSpot(dir) {
+  const spot = document.querySelector(`.hit-spot[data-dir="${dir}"]`);
+  if (!spot) return;
+  let color = '#fff';
+  if (dir === 'left')   color = '#ffea00';
+  if (dir === 'right')  color = '#00ff88';
+  if (dir === 'up')     color = '#ff0033';
+  if (dir === 'down')   color = '#00cfff';
+
+  spot.style.background = color;
+  spot.style.opacity = 0.8;
+
+  setTimeout(() => {
+    spot.style.background = '';
+    spot.style.opacity = 0.3;
+  }, 150);
+}
+
+    function triggerHasteMode() {
+      inHaste = true;
+      hasteRemaining = 10;
+      speed = baseSpeed * 3;
+      hasteBanner.style.display = 'block';
+    }
+
+ function endGame() {
+  gameRunning = false;
+  gameOverEl.style.display = 'block';
+  finalScoreEl.textContent = `Score: ${score}`;
+  clearInterval(spawnInterval);
+  arrows.forEach(a => a.remove());
+  arrows = [];
+}
+    function restartGame() {
+      menu.style.display = 'block';
+      gameArea.style.display = 'none';
+      hasteBanner.style.display = 'none';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (!gameRunning) return;
+      if (keys[e.key]) {
+        checkHit(keys[e.key]);
+      }
+    });
+
+    function gameLoop() {
+      if (gameRunning) {
+        updateArrows();
+        requestAnimationFrame(gameLoop);
+      }
+    }
+
+
+  spot.style.background = color;
+  spot.style.opacity = 0.8;
+
+  setTimeout(() => {
+    spot.style.background = '';
+    spot.style.opacity = 0.3;
+  }, 150);
+
+
+function endGame() {
+  gameRunning = false;
+  gameOverEl.style.display = 'block';
+  finalScoreEl.textContent = `Score: ${score}`;
+  clearInterval(spawnInterval);
+  arrows.forEach(a => a.remove());
+  arrows = [];
+}
+
+  </script>
+</body>
+</html>

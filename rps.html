@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Western Rock Paper Scissors</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nosifer&family=Special+Elite&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Special Elite', monospace;
+      background-image: url('images/western-arid-mountain-range-vsgb67v82y6x90oy.jpg'); /* Western achtergrond */
+      background-size: cover;
+      background-attachment: fixed;
+      color: #3e2f1c;
+      text-align: center;
+      padding: 30px;
+    }
+
+    h1 {
+      font-family: 'Nosifer', cursive;
+      color: #6b3e1d;
+      font-size: 3em;
+      margin-bottom: 0.3em;
+      text-shadow: 2px 2px #e6c397;
+    }
+
+    #wildframe {
+      border: 10px solid #5b3921;
+      padding: 30px;
+      background-color: rgba(255, 248, 209, 0.95);
+      box-shadow: 0 0 25px rgba(0,0,0,0.5);
+      border-radius: 16px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .choices button {
+      font-size: 1.5em;
+      padding: 15px 25px;
+      margin: 15px;
+      border-radius: 12px;
+      border: 4px solid #3b2a1a;
+      background: #deb887;
+      color: #3e2f1c;
+      cursor: pointer;
+      font-family: 'Special Elite';
+      box-shadow: 3px 3px 7px #4b2e1e;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .choices button:hover {
+      background-color: #c49b6c;
+      transform: scale(1.1) rotate(-1deg);
+    }
+
+    select {
+      font-size: 1em;
+      padding: 7px;
+      margin: 10px;
+      background-color: #f5deb3;
+      border: 2px solid #6b3e1d;
+      border-radius: 6px;
+    }
+
+    #result {
+      font-size: 1.4em;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    #score {
+      font-size: 1.1em;
+      margin-top: 10px;
+    }
+
+    #multiplayerNote {
+      font-style: italic;
+      color: #5a4630;
+      margin-bottom: 10px;
+    }
+
+    .cactus {
+      font-size: 2em;
+      margin: 15px 0;
+    }
+
+    #music-btn {
+      background-color: #6b3e1d;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-family: 'Special Elite';
+    }
+
+    #music-btn:hover {
+      background-color: #523016;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="wildframe">
+    <h1>🤠 Western Showdown</h1>
+
+    <div class="cactus">🌵🌞🌵</div>
+
+    <div>
+      <label for="mode">Spelmodus:</label>
+      <select id="mode" onchange="resetGame()">
+        <option value="single">Tegen de Sheriff (CPU)</option>
+        <option value="multi">Duel: 2 Cowboys</option>
+      </select>
+
+      <label for="difficulty">Moeilijkheid:</label>
+      <select id="difficulty">
+        <option value="easy">Makkelijk</option>
+        <option value="medium" selected>Middel</option>
+        <option value="hard">Moeilijk</option>
+      </select>
+    </div>
+
+    <div id="multiplayerNote" style="display: none;">
+      Speler 1 maakt z'n keuze... Speler 2 wacht buiten de saloon 🐎
+    </div>
+
+    <div class="choices">
+      <button onclick="handleChoice('rock')">🪨 Rock</button>
+      <button onclick="handleChoice('paper')">📜 Paper</button>
+      <button onclick="handleChoice('scissors')">✂️ Scissors</button>
+    </div>
+
+    <div id="result"></div>
+    <div id="score">Wins: 0 | Losses: 0 | Draws: 0</div>
+    <div class="cactus">🌵🤠💥</div>
+
+    <button id="music-btn" onclick="toggleMusic()">🎵 Muziek Aan/Uit</button>
+  </div>
+
+  <audio id="western-music" loop>
+    <source src="audio/wawawa.mp3" type="audio/mpeg">
+    Je browser ondersteunt geen audio.
+  </audio>
+
+  <script>
+    let wins = 0, losses = 0, draws = 0;
+    let mode = "single";
+    let difficulty = "medium";
+    let player1Choice = null;
+    let player2Choice = null;
+    const music = document.getElementById("western-music");
+
+    function resetGame() {
+      mode = document.getElementById('mode').value;
+      difficulty = document.getElementById('difficulty').value;
+      player1Choice = null;
+      player2Choice = null;
+      document.getElementById('result').textContent = '';
+      document.getElementById('score').textContent = `Wins: ${wins} | Losses: ${losses} | Draws: ${draws}`;
+      document.getElementById('multiplayerNote').style.display = mode === 'multi' ? 'block' : 'none';
+    }
+
+    function handleChoice(choice) {
+      if (mode === 'single') {
+        playSingle(choice);
+      } else {
+        handleMultiplayerChoice(choice);
+      }
+    }
+
+    function handleMultiplayerChoice(choice) {
+      if (!player1Choice) {
+        player1Choice = choice;
+        document.getElementById('result').textContent = 'Speler 1 heeft gekozen. Speler 2 is aan de beurt!';
+      } else if (!player2Choice) {
+        player2Choice = choice;
+        const result = getWinner(player1Choice, player2Choice);
+        updateScore(result, player1Choice, player2Choice, true);
+        player1Choice = null;
+        player2Choice = null;
+      }
+    }
+
+    function playSingle(playerChoice) {
+      const computerChoice = getComputerChoice(playerChoice, difficulty);
+      const result = getWinner(playerChoice, computerChoice);
+      updateScore(result, playerChoice, computerChoice);
+    }
+
+    function getComputerChoice(playerChoice, difficulty) {
+      const options = ['rock', 'paper', 'scissors'];
+      if (difficulty === 'easy') {
+        return options[Math.floor(Math.random() * 3)];
+      } else if (difficulty === 'medium') {
+        return Math.random() < 0.5
+          ? options[Math.floor(Math.random() * 3)]
+          : counterMove(playerChoice);
+      } else {
+        return counterMove(playerChoice);
+      }
+    }
+
+    function counterMove(choice) {
+      if (choice === 'rock') return 'paper';
+      if (choice === 'paper') return 'scissors';
+      if (choice === 'scissors') return 'rock';
+    }
+
+    function getWinner(p1, p2) {
+      if (p1 === p2) return 'draw';
+      if ((p1 === 'rock' && p2 === 'scissors') ||
+          (p1 === 'paper' && p2 === 'rock') ||
+          (p1 === 'scissors' && p2 === 'paper')) {
+        return 'win';
+      } else {
+        return 'lose';
+      }
+    }
+
+    function updateScore(result, player, opponent, isMultiplayer = false) {
+      let message = '';
+      if (result === 'draw') {
+        draws++;
+        message = `🤠 Gelijkspel! Beide cowboys kozen ${player}`;
+      } else if (result === 'win') {
+        wins++;
+        message = isMultiplayer
+          ? `🎯 Speler 1 wint! ${player} verslaat ${opponent}`
+          : `Je wint! ${player} verslaat de Sheriff's ${opponent}`;
+      } else {
+        losses++;
+        message = isMultiplayer
+          ? `💥 Speler 2 wint! ${opponent} verslaat ${player}`
+          : `De Sheriff wint... ${opponent} verslaat jouw ${player}`;
+      }
+      document.getElementById('result').textContent = message;
+      document.getElementById('score').textContent =
+        `Wins: ${wins} | Losses: ${losses} | Draws: ${draws}`;
+    }
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
+
+    resetGame();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>X-Wing Boss Battle</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      overflow: hidden;
+      font-family: monospace;
+    }
+    canvas {
+      display: block;
+      margin: auto;
+      background: radial-gradient(#000000, #0a0a0a);
+      border: 3px solid #00ffe5;
+      box-shadow: 0 0 20px #00ffe5;
+    }
+    #scoreDisplay {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      color: #00ffe5;
+      font-size: 1.2em;
+    }
+    #victoryScreen, #gameOverScreen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.85);
+      color: #00ffe5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+      z-index: 10;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      margin-top: 20px;
+      cursor: pointer;
+      background-color: #00ffe5;
+      border: none;
+      color: black;
+      border-radius: 5px;
+      box-shadow: 0 0 10px #00ffe5;
+    }
+  </style>
+</head>
+<body>
+  <div id="scoreDisplay">Score: 0</div>
+  <div id="victoryScreen" style="display:none;">
+    🎉 Victory! Je hebt de TIE Boss verslagen!
+    <button onclick="location.reload()">Opnieuw Spelen</button>
+  </div>
+  <div id="gameOverScreen" style="display:none;">
+    💥 Je bent geraakt!
+    <button onclick="location.reload()">Opnieuw Spelen</button>
+  </div>
+  <canvas id="gameCanvas" width="400" height="600"></canvas>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const scoreDisplay = document.getElementById('scoreDisplay');
+
+    const xWingImg = new Image();
+    const tieBossImg = new Image();
+    xWingImg.src = 'images/x-wing.png';
+    tieBossImg.src = 'images/tie-fighter.png';
+
+    const player = {
+      x: 170,
+      y: 500,
+      width: 60,
+      height: 60,
+      speed: 6
+    };
+
+    const lasers = [];
+    const playerLasers = [];
+
+    const boss = {
+      x: 120,
+      y: 30,
+      width: 160,
+      height: 80,
+      hp: 10,
+      alive: false,
+      speed: 2,
+      direction: 1
+    };
+
+    let score = 0;
+    let gameOver = false;
+    let victory = false;
+    let bossFight = false;
+    let laserInterval;
+    let bossLaserInterval;
+
+    function spawnLaser() {
+      if (!bossFight) {
+        const width = 8;
+        const x = Math.random() * (canvas.width - width);
+        lasers.push({
+          x,
+          y: -20,
+          width,
+          height: 20,
+          speed: 3 + Math.random() * 3,
+        });
+      }
+    }
+
+    function spawnBossLaser() {
+      if (boss.alive) {
+        lasers.push({
+          x: boss.x + boss.width / 2 - 4,
+          y: boss.y + boss.height,
+          width: 8,
+          height: 20,
+          speed: 5
+        });
+      }
+    }
+
+    function drawPlayer() {
+      ctx.save();
+      ctx.translate(player.x + player.width / 2, player.y + player.height / 2);
+
+      ctx.drawImage(xWingImg, -player.width / 2, -player.height / 2, player.width, player.height);
+      ctx.restore();
+    }
+
+    function drawBoss() {
+      if (boss.alive) {
+        ctx.drawImage(tieBossImg, boss.x, boss.y, boss.width, boss.height);
+      }
+    }
+
+    function drawLasers() {
+      ctx.fillStyle = bossFight ? '#00ff00' : '#00ff00';
+      lasers.forEach(l => {
+        ctx.fillRect(l.x, l.y, l.width, l.height);
+      });
+
+      ctx.fillStyle = '#ff3333';
+      playerLasers.forEach(l => {
+        ctx.fillRect(l.x, l.y, l.width, l.height);
+      });
+    }
+
+    function updateLasers() {
+      // Enemy lasers
+      for (let i = lasers.length - 1; i >= 0; i--) {
+        lasers[i].y += lasers[i].speed;
+        if (lasers[i].y > canvas.height) {
+          lasers.splice(i, 1);
+        }
+      }
+
+      // Player lasers
+      for (let i = playerLasers.length - 1; i >= 0; i--) {
+        playerLasers[i].y -= 7;
+        if (playerLasers[i].y < 0) {
+          playerLasers.splice(i, 1);
+        }
+      }
+    }
+
+    function checkCollisions() {
+      // Player hit
+      for (let l of lasers) {
+        if (
+          l.x < player.x + player.width &&
+          l.x + l.width > player.x &&
+          l.y < player.y + player.height &&
+          l.y + l.height > player.y
+        ) {
+          endGame();
+        }
+      }
+
+      // Boss hit
+      if (boss.alive) {
+        for (let i = playerLasers.length - 1; i >= 0; i--) {
+          const l = playerLasers[i];
+          if (
+            l.x < boss.x + boss.width &&
+            l.x + l.width > boss.x &&
+            l.y < boss.y + boss.height &&
+            l.y + l.height > boss.y
+          ) {
+            boss.hp--;
+            playerLasers.splice(i, 1);
+            if (boss.hp <= 0) {
+              boss.alive = false;
+              lasers.length = 0;
+              victory = true;
+              document.getElementById('victoryScreen').style.display = 'flex';
+            }
+          }
+        }
+      }
+    }
+
+    function drawStars() {
+      for (let i = 0; i < 20; i++) {
+        ctx.fillStyle = 'white';
+        let x = Math.random() * canvas.width;
+        let y = Math.random() * canvas.height;
+        ctx.fillRect(x, y, 1, 1);
+      }
+    }
+
+    function updateBoss() {
+      if (boss.alive) {
+        boss.x += boss.speed * boss.direction;
+        if (boss.x <= 0 || boss.x + boss.width >= canvas.width) {
+          boss.direction *= -1;
+        }
+      }
+    }
+
+    function drawScore() {
+      scoreDisplay.textContent = bossFight
+        ? `BOSS HP: ${boss.hp}`
+        : `Score: ${score}`;
+    }
+
+    function gameLoop() {
+      if (gameOver || victory) return;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawStars();
+      drawLasers();
+      updateLasers();
+      drawPlayer();
+      drawBoss();
+      updateBoss();
+      checkCollisions();
+      drawScore();
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    function startGame() {
+      score = 0;
+      lasers.length = 0;
+      laserInterval = setInterval(spawnLaser, 800);
+      gameLoop();
+    }
+
+    function endGame() {
+      gameOver = true;
+      clearInterval(laserInterval);
+      clearInterval(bossLaserInterval);
+      document.getElementById('gameOverScreen').style.display = 'flex';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' && player.x > 0) {
+        player.x -= player.speed;
+      } else if (e.key === 'ArrowRight' && player.x + player.width < canvas.width) {
+        player.x += player.speed;
+      } else if (e.code === 'Space') {
+        // shoot
+        if (!gameOver && boss.alive) {
+          playerLasers.push({
+            x: player.x + player.width / 2 - 2,
+            y: player.y,
+            width: 4,
+            height: 12
+          });
+        }
+      }
+    });
+
+    // Score omhoog in normale fase
+    setInterval(() => {
+      if (!bossFight && !gameOver && !victory) {
+        score++;
+        if (score >= 45 && !boss.alive) {
+          // start boss
+          bossFight = true;
+          boss.alive = true;
+          clearInterval(laserInterval);
+          bossLaserInterval = setInterval(spawnBossLaser, 800);
+        }
+      }
+    }, 1000);
+
+    xWingImg.onload = () => {
+      startGame();
+    };
+  </script>
+</body>
+</html>
