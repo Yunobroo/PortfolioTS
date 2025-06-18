@@ -225,7 +225,7 @@ h2, h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url('../images/andor.webp') no-repeat center center/cover;
+  background: url('../images/andor.png') no-repeat center center/cover;
 }
 
 .hero-overlay video {
