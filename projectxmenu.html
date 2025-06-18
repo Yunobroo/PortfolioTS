@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keuzemenu – Wii-Mini</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Cinzel', serif;
+      background: linear-gradient(to bottom, #010101, #0b0010);
+      color: #fff;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 2rem;
+    }
+
+    .title {
+      position: absolute;
+      top: 50px;
+      font-size: 2rem;
+      color: #39ff14;
+      text-shadow: 0 0 15px #39ff14;
+      z-index: 3;
+      text-align: center;
+      width: 100%;
+    }
+
+    .menu-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .menu-button {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: rgba(57, 255, 20, 0.08);
+      color: #39ff14;
+      text-align: center;
+      font-size: 1.2rem;
+      text-decoration: none;
+      position: relative;
+      box-shadow: 0 0 50px rgba(57, 255, 20, 0.6);
+      transition: transform 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-shadow: 0 0 6px #39ff14;
+      backdrop-filter: blur(3px);
+    }
+
+    .menu-button:hover {
+      transform: scale(1.1);
+    }
+
+    .pulse-ring,
+    .outer-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid rgba(57, 255, 20, 0.3);
+      animation: pulse 3s infinite;
+      pointer-events: none;
+    }
+
+    .pulse-ring {
+      width: 330px;
+      height: 330px;
+      top: -40px;
+      left: -40px;
+    }
+
+    .outer-ring {
+      width: 400px;
+      height: 400px;
+      top: -75px;
+      left: -75px;
+      animation-delay: 1.5s;
+      opacity: 0.2;
+    }
+
+    .orbit-circle {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #39ff14;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: orbit 6s linear infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    @keyframes orbit {
+      0% {
+        transform: rotate(0deg) translateX(170px) rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg) translateX(170px) rotate(-360deg);
+      }
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #39ff14;
+      animation: twinkle 2s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="title">Wii-Mini Keuzemenu</div>
+
+  <div class="menu-container">
+    <a href="has.html" class="menu-button">
+      Wii-Mini
+      <span class="pulse-ring"></span>
+      <span class="outer-ring"></span>
+      <span class="orbit-circle"></span>
+    </a>
+    <a href="wii-mini-uitleg.html" class="menu-button">
+      Wii-Mini Uitleg
+      <span class="pulse-ring"></span>
+      <span class="outer-ring"></span>
+      <span class="orbit-circle"></span>
+    </a>
+  </div>
+
+  <div class="stars">
+    <!-- Genereer optioneel wat sterren hier via JS -->
+    <script>
+      for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${Math.random() * 3}s`;
+        document.querySelector('.stars').appendChild(star);
+      }
+    </script>
+  </div>
+</body>
+</html>
